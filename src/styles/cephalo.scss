@@ -1,0 +1,42 @@
+
+.cephalo {
+
+    .calc-head {
+        background-color: #456;
+        z-index: 999;
+        position: absolute;
+        top: 15%;
+        right: 1%;
+        width: 30vw;
+        height: 80vh;
+        border: 2px solid red;
+        border-radius: 5px;
+        padding: 10px 0;
+
+        .buttons {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+
+            span {
+                background-color: #ddd;
+                width: 55px;
+                border: 1px solid;
+                margin: 5px;
+                color: black;
+                display: flex;
+                justify-content: center;
+                padding: 5px 0;
+                border-radius: 3px;
+                transition: .3s;
+
+                &:hover {
+                    background-color: fff;
+                    cursor: copy;
+                    border-color: orange;
+                }
+            }
+        }
+    }
+
+}

@@ -1,0 +1,28 @@
+
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    
+    ul {
+        background-color: #334;
+        color: #ddf;
+        list-style: none;
+        display: flex;
+        justify-content: space-evenly;
+        align-items: center;
+        padding: 20px;
+        font-size: 22px;
+
+        li {
+            font-family: Oxygen, Ubuntu, Cantarell, sans-serif;
+            transition: .5s;
+
+            &:hover {
+                cursor: pointer;
+                color: #fff;
+            }
+        }
+    }
+}

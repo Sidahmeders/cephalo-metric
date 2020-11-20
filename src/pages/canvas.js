@@ -1,0 +1,79 @@
+import React, { useRef, useEffect } from 'react'
+
+
+const Canvas = () => {
+
+    const canvas = useRef(null)
+
+    const renderCanvas = () => {
+        const ctx = canvas.current
+        ctx.width = innerWidth
+        ctx.height = innerHeight / 1.12
+
+        const c = ctx.getContext('2d')
+
+        // appendCircle(c)
+        // appendRectAngle(c)
+        appendLine(c)
+        appendArc(c)
+    }
+
+    const appendCircle = c => {
+        const cir = () => {
+            for (let i = 0; i < 500; i++) {
+                const x = Math.random() * innerWidth;
+                const y = Math.random() * innerHeight - 100;
+                c.beginPath();
+                c.arc(x, y, 2, 0, Math.PI * 2, false);
+                c.strokeStyle = `#${i}8${i * 2}`;
+                c.stroke();
+            }
+        }
+
+        for(let i = 0; i < 100; i++) {
+            setTimeout(() => {
+                cir()
+            }, 100 * i)
+        }
+    }
+
+    const appendArc = c => {
+        //* appending Arc
+        c.beginPath();
+        c.arc(300, 300, 30, 0, Math.PI * 2, false);
+        c.strokeStyle = "#007";
+        c.stroke();
+    }
+
+    const appendRectAngle = c => {
+        //* appending rect
+        c.fillStyle = "#d89"
+        c.fillRect(900, 200, 100, 100)
+        c.fillStyle = "#99d"
+        c.fillRect(500, 100, 90, 90)
+    }
+
+    const appendLine = c => {
+        //* appending a line
+        c.beginPath();
+        c.moveTo(50, 300);
+        c.lineTo(300, 100);
+        c.lineTo(300, 250);
+        c.moveTo(300, 250);
+        c.lineTo(100, 300)
+        c.strokeStyle = "#00d";
+        c.stroke();
+    }
+
+    useEffect(() => {
+        renderCanvas()
+    }, [])
+
+    return (
+        <div style={{marginTop: "10vh", position: "absolute", left: 0, zIndex: 1}}>
+            <canvas ref={canvas}></canvas>
+        </div>
+    )
+}
+
+export default Canvas
