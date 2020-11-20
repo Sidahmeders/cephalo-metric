@@ -14,7 +14,8 @@ const Canvas = () => {
 
         // appendCircle(c)
         // appendRectAngle(c)
-        appendLine(c)
+        appendLine1(c)
+        appendLine2(c)
         appendArc(c)
     }
 
@@ -53,7 +54,7 @@ const Canvas = () => {
         c.fillRect(500, 100, 90, 90)
     }
 
-    const appendLine = c => {
+    const appendLine1 = c => {
         //* appending a line
         c.beginPath();
         c.moveTo(50, 300);
@@ -61,6 +62,18 @@ const Canvas = () => {
         c.lineTo(300, 250);
         c.moveTo(300, 250);
         c.lineTo(100, 300)
+        c.strokeStyle = "#00d";
+        c.stroke();
+    }
+
+    const appendLine2 = c => {
+        //* appending a line
+        c.beginPath();
+        c.moveTo(230, 460);
+        c.lineTo(800, 300);
+        c.lineTo(300, 250);
+        c.moveTo(500, 50);
+        c.lineTo(300, 300)
         c.strokeStyle = "#00d";
         c.stroke();
     }
