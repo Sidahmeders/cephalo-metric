@@ -1,7 +1,7 @@
 import React, { useRef, useEffect } from 'react'
 
 
-const Canvas = () => {
+const Canvas = ({ coordinates }) => {
 
     const canvas = useRef(null)
 
@@ -17,6 +17,7 @@ const Canvas = () => {
         // appendLine1(c)
         appendLine2(c)
         // appendArc(c)
+        appendPoints(c)
     }
 
     const appendCircle = c => {
@@ -26,7 +27,7 @@ const Canvas = () => {
                 const y = Math.random() * innerHeight - 100
                 c.beginPath()
                 c.arc(x, y, 2, 0, Math.PI * 2, false);
-                c.strokeStyle = `#${i}8${i * 2}`
+                c.strokeStyle = `#${i}8${i * 8}`
                 c.stroke()
             }
         }
@@ -75,6 +76,15 @@ const Canvas = () => {
         c.moveTo(400, 300)
         c.lineTo(300, 400)
         c.strokeStyle = "#f0f"
+        c.lineWidth = 2
+        c.stroke()
+    }
+
+    const appendPoints = c => {
+        const { x, y } = coordinates
+        c.beginPath()
+        c.arc(x/*x*/, y /*y*/, 2, 0, 2*Math.PI, false);
+        c.strokeStyle = '#f12'
         c.lineWidth = 3
         c.stroke()
     }
@@ -91,7 +101,7 @@ const Canvas = () => {
 
     useEffect(() => {
         renderCanvas()
-    }, [])
+    }, [coordinates])
 
     return (
         <div style={{marginTop: "10vh", position: "absolute", left: 0, zIndex: 1}}>

@@ -6,12 +6,12 @@ import Canvas from './canvas'
 
 const CalcHead = () => {
 
-    const [rules, setRules] = useState([
-        'S', 'Po', 'PGs', 'R1', 'N', 'Ba', 'Li', 'R2', 
-        'A', 'Or', 'PN', 'R3', 'B', 'Me', 'ANS', 'R4', 
-        'Gn', 'Pog', 'PNS', 'Go', 'Co', 'Pt', 'U1', 
+    const rules = [
+        'S', 'Po', 'PGs', 'R1', 'N', 'Ba', 'Li', 'R2',
+        'A', 'Or', 'PN', 'R3', 'B', 'Me', 'ANS', 'R4',
+        'Gn', 'Pog', 'PNS', 'Go', 'Co', 'Pt', 'U1',
         'L1', 'PM', 'U1ap', 'L1ap', 'DC', 'OLp', 'OLa'
-    ])
+    ]
 
     return (
         <div className="calc-head">
@@ -41,14 +41,30 @@ const Cephalo = () => {
         setGrid(() => rows)
     }
 
-    useEffect(() => {
-        gridRender()
-    }, [])
+    const [coordinates, setCoordinates] = useState({
+        x: null,
+        y: null
+    })
+
+    const pinPoinstOnCanvas = e => {
+        const { layerX, layerY } = e.nativeEvent
+        setCoordinates(() => {
+            return {
+                x: layerX,
+                y: layerY
+            }
+        })
+        console.log('layer-x-y: ', layerX, layerY) // row, col
+    }
+
+    // useEffect(() => {
+    //     gridRender()
+    // }, [])
 
     const setGridprops = (e, x, y) => {
         const { layerX, layerY } = e.nativeEvent
-        console.log(layerX, layerY, 'layerXy')
-        console.log(x, y, "row, col") // row, col
+        console.log('row-col: ', x, y)
+        console.log('layer-x-y: ', layerX, layerY) // row, col
         const newgrid = grid.map((row, rowIndex) => {
             return row.map((col, colIndex) => {
                 if (rowIndex == x && colIndex == y) {
@@ -61,8 +77,8 @@ const Cephalo = () => {
     } 
 
     return (
-        <div className="cephalo">
-            <Canvas />
+        <div className="cephalo" onClick={e => pinPoinstOnCanvas(e)} >
+            <Canvas coordinates={ coordinates } />
             <CalcHead />
             <h2 style={{marginTop: "15vh", color: "#592"}}>@DENTECH</h2>
             <div className="war">
