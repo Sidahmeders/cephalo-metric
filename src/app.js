@@ -4,7 +4,6 @@ import './styles/app.scss'
 import Navbar from './components/navbar/navbar.jsx'
 import HomePage from './pages/home'
 import CephaloPage from './pages/cephalo'
-// import Canvas from './pages/canvas'
 
 const App = () => {
     return (
@@ -14,7 +13,6 @@ const App = () => {
           <Switch>
             <Route path="/" exact  component={ HomePage } />
             <Route path="/cephalo" component={ CephaloPage } />
-            {/* <Route path="/canvas" component={Canvas} /> */}
           </Switch>
         </div>
     </Router>

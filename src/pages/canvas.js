@@ -4,7 +4,6 @@ import React, { useRef, useEffect, useState } from 'react'
 const Canvas = ({ coordinates }) => {
 
     const canvas = useRef(null)
-    const [stack, setStack] = useState([])
 
     const renderCanvas = () => {
         const ctx = canvas.current
@@ -81,23 +80,29 @@ const Canvas = ({ coordinates }) => {
         c.stroke()
     }
 
-
     const appendPoints = c => {
-        const { x, y } = coordinates
-        setStack(() => {
-            return [
-                ...stack,
-                { x, y }
-            ]
-        })
+        
+        for (let i = 0; i < coordinates.length; i++) {
+            const { x , y } = coordinates[i]
+            c.beginPath()
+            c.arc(x, y, 2, 0, 2*Math.PI, false);
+            c.strokeStyle = '#f12'
+            c.lineWidth = 3
+            c.stroke()
 
-        c.beginPath()
-        c.arc(x, y, 2, 0, 2*Math.PI, false);
-        c.strokeStyle = '#f12'
-        c.lineWidth = 3
-        c.stroke()
+            if ((i + 1) % 2 == 0) {
+                const startPoints = coordinates[i-1]
+                let [x2, y2] = [startPoints.x, startPoints.y]
+                
+                c.moveTo(x, y)
+                c.lineTo(x2, y2)
+                c.strokeStyle = "#00f"
+                c.stroke()
+            }
+        }
+
+
     }
-
 
     useEffect(() => {
         renderCanvas()

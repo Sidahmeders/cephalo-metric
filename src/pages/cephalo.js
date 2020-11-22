@@ -41,20 +41,16 @@ const Cephalo = () => {
         setGrid(() => rows)
     }
 
-    const [coordinates, setCoordinates] = useState({
-        x: null,
-        y: null
-    })
+    const [coordinates, setCoordinates] = useState([])
 
     const pinPoinstOnCanvas = e => {
         const { layerX, layerY } = e.nativeEvent
         setCoordinates(() => {
-            return {
-                x: layerX,
-                y: layerY
-            }
+            return [
+                ...coordinates,
+                { x: layerX, y: layerY }
+            ]
         })
-        // console.log('layer-x-y: ', layerX, layerY)
     }
 
     // useEffect(() => {
@@ -63,8 +59,6 @@ const Cephalo = () => {
 
     const setGridprops = (e, x, y) => {
         const { layerX, layerY } = e.nativeEvent
-        // console.log('row-col: ', x, y)
-        // console.log('layer-x-y: ', layerX, layerY)
         const newgrid = grid.map((row, rowIndex) => {
             return row.map((col, colIndex) => {
                 if (rowIndex == x && colIndex == y) {
