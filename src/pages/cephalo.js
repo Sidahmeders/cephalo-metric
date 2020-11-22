@@ -46,10 +46,9 @@ const Cephalo = () => {
     }, [])
 
     const setGridprops = (e, x, y) => {
-        console.log(x, y) // remove this
-        console.log(e.clientX, e.clientY, "clientXy") // client x y
-        console.log(e.pageX, e.pageY, "pageXy") // page x y
-        console.log(e.screenX, e.screenY, "screenXy") // screen x y
+        const { layerX, layerY } = e.nativeEvent
+        console.log(layerX, layerY, 'layerXy')
+        console.log(x, y, "row, col") // row, col
         const newgrid = grid.map((row, rowIndex) => {
             return row.map((col, colIndex) => {
                 if (rowIndex == x && colIndex == y) {

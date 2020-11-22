@@ -14,20 +14,20 @@ const Canvas = () => {
 
         // appendCircle(c)
         // appendRectAngle(c)
-        appendLine1(c)
+        // appendLine1(c)
         appendLine2(c)
-        appendArc(c)
+        // appendArc(c)
     }
 
     const appendCircle = c => {
         const cir = () => {
             for (let i = 0; i < 500; i++) {
-                const x = Math.random() * innerWidth;
-                const y = Math.random() * innerHeight - 100;
-                c.beginPath();
+                const x = Math.random() * innerWidth
+                const y = Math.random() * innerHeight - 100
+                c.beginPath()
                 c.arc(x, y, 2, 0, Math.PI * 2, false);
-                c.strokeStyle = `#${i}8${i * 2}`;
-                c.stroke();
+                c.strokeStyle = `#${i}8${i * 2}`
+                c.stroke()
             }
         }
 
@@ -40,10 +40,10 @@ const Canvas = () => {
 
     const appendArc = c => {
         //* appending Arc
-        c.beginPath();
-        c.arc(300, 300, 30, 0, Math.PI * 2, false);
-        c.strokeStyle = "#007";
-        c.stroke();
+        c.beginPath()
+        c.arc(300, 300, 30, 0, Math.PI * 2, false)
+        c.strokeStyle = "#007"
+        c.stroke()
     }
 
     const appendRectAngle = c => {
@@ -56,27 +56,38 @@ const Canvas = () => {
 
     const appendLine1 = c => {
         //* appending a line
-        c.beginPath();
-        c.moveTo(50, 300);
-        c.lineTo(300, 100);
-        c.lineTo(300, 250);
-        c.moveTo(300, 250);
+        c.beginPath()
+        c.moveTo(50, 300)
+        c.lineTo(300, 100)
+        c.lineTo(300, 250)
+        c.moveTo(300, 250)
         c.lineTo(100, 300)
-        c.strokeStyle = "#00d";
-        c.stroke();
+        c.strokeStyle = "#00f"
+        c.stroke()
     }
 
     const appendLine2 = c => {
         //* appending a line
         c.beginPath();
-        c.moveTo(230, 460);
-        c.lineTo(800, 300);
-        c.lineTo(300, 250);
-        c.moveTo(500, 50);
-        c.lineTo(300, 300)
-        c.strokeStyle = "#00d";
-        c.stroke();
+        // c.moveTo(230, 460)
+        // c.lineTo(800, 300)
+        // c.lineTo(300, 250)
+        c.moveTo(400, 300)
+        c.lineTo(300, 400)
+        c.strokeStyle = "#f0f"
+        c.lineWidth = 3
+        c.stroke()
     }
+
+    // const getClickPostion = obj => {
+    //     const curLeft , curTop = 0
+    //     if (obj.offsetParent) {
+    //         do {
+    //             curLeft += obj.offsetLeft
+    //             curTop += obj.offsetTop
+    //         }
+    //     }
+    // }
 
     useEffect(() => {
         renderCanvas()
