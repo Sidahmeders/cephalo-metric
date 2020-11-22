@@ -54,7 +54,7 @@ const Cephalo = () => {
                 y: layerY
             }
         })
-        console.log('layer-x-y: ', layerX, layerY) // row, col
+        // console.log('layer-x-y: ', layerX, layerY)
     }
 
     // useEffect(() => {
@@ -63,8 +63,8 @@ const Cephalo = () => {
 
     const setGridprops = (e, x, y) => {
         const { layerX, layerY } = e.nativeEvent
-        console.log('row-col: ', x, y)
-        console.log('layer-x-y: ', layerX, layerY) // row, col
+        // console.log('row-col: ', x, y)
+        // console.log('layer-x-y: ', layerX, layerY)
         const newgrid = grid.map((row, rowIndex) => {
             return row.map((col, colIndex) => {
                 if (rowIndex == x && colIndex == y) {

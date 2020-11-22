@@ -1,9 +1,10 @@
-import React, { useRef, useEffect } from 'react'
+import React, { useRef, useEffect, useState } from 'react'
 
 
 const Canvas = ({ coordinates }) => {
 
     const canvas = useRef(null)
+    const [stack, setStack] = useState([])
 
     const renderCanvas = () => {
         const ctx = canvas.current
@@ -12,15 +13,15 @@ const Canvas = ({ coordinates }) => {
 
         const c = ctx.getContext('2d')
 
-        // appendCircle(c)
+        // appendSmallCircles(c)
         // appendRectAngle(c)
         // appendLine1(c)
-        appendLine2(c)
+        // appendLine2(c)
         // appendArc(c)
         appendPoints(c)
     }
 
-    const appendCircle = c => {
+    const appendSmallCircles = c => {
         const cir = () => {
             for (let i = 0; i < 500; i++) {
                 const x = Math.random() * innerWidth
@@ -63,6 +64,7 @@ const Canvas = ({ coordinates }) => {
         c.lineTo(300, 250)
         c.moveTo(300, 250)
         c.lineTo(100, 300)
+        c.lineWidth = 1
         c.strokeStyle = "#00f"
         c.stroke()
     }
@@ -70,34 +72,32 @@ const Canvas = ({ coordinates }) => {
     const appendLine2 = c => {
         //* appending a line
         c.beginPath();
-        // c.moveTo(230, 460)
-        // c.lineTo(800, 300)
-        // c.lineTo(300, 250)
-        c.moveTo(400, 300)
-        c.lineTo(300, 400)
-        c.strokeStyle = "#f0f"
-        c.lineWidth = 2
+        c.moveTo(230, 460)
+        c.lineTo(800, 300)
+        c.lineTo(300, 250)
+        c.moveTo(380, 200)
+        c.lineTo(350, 500)
+        c.strokeStyle = "#00f"
         c.stroke()
     }
 
+
     const appendPoints = c => {
         const { x, y } = coordinates
+        setStack(() => {
+            return [
+                ...stack,
+                { x, y }
+            ]
+        })
+
         c.beginPath()
-        c.arc(x/*x*/, y /*y*/, 2, 0, 2*Math.PI, false);
+        c.arc(x, y, 2, 0, 2*Math.PI, false);
         c.strokeStyle = '#f12'
         c.lineWidth = 3
         c.stroke()
     }
 
-    // const getClickPostion = obj => {
-    //     const curLeft , curTop = 0
-    //     if (obj.offsetParent) {
-    //         do {
-    //             curLeft += obj.offsetLeft
-    //             curTop += obj.offsetTop
-    //         }
-    //     }
-    // }
 
     useEffect(() => {
         renderCanvas()
