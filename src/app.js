@@ -6,6 +6,7 @@ import HomePage from './pages/home'
 import CephaloPage from './pages/cephalo'
 
 const App = () => {
+
     return (
         <Router>
         <div className="app">

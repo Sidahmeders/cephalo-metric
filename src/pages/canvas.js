@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState } from 'react'
+import React, { useRef, useEffect } from 'react'
 
 
 const Canvas = ({ coordinates }) => {
@@ -92,16 +92,34 @@ const Canvas = ({ coordinates }) => {
 
             if ((i + 1) % 2 == 0) {
                 const startPoints = coordinates[i-1]
-                let [x2, y2] = [startPoints.x, startPoints.y]
-                
-                c.moveTo(x, y)
-                c.lineTo(x2, y2)
+                let [preX, preY] = [startPoints.x, startPoints.y]
+
+                c.moveTo(preX, preY)
+                c.lineTo(x, y)
                 c.strokeStyle = "#00f"
                 c.stroke()
+
+                console.log(preX, preY)
+                console.log(x, y)
             }
         }
 
 
+    }
+
+    const convertScreenCoordinatesToCartesianPlane = (tanget, x1, y1, x2, y2) => {
+        
+    }
+
+    const angleBetweenTwoVectors = (Ux, Uy, Vx, Vy) => {
+        const UV_dot_Product = (Ux * (Vx)) + (Uy * (Vy))
+        const U_magnitude = Math.sqrt(((Ux)**2) + ((Uy)**2))
+        const V_magnitude = Math.sqrt(((Vx)**2) + ((Vy)**2))
+
+        const cos_theta = Math.acos (UV_dot_Product/(U_magnitude * V_magnitude))
+        const theta = cos_theta * (180 / Math.PI)
+
+        return theta
     }
 
     useEffect(() => {
