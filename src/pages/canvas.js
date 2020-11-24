@@ -107,8 +107,10 @@ const Canvas = ({ coordinates }) => {
 
     }
 
-    const convertScreenCoordinatesToCartesianPlane = (tanget, x1, y1, x2, y2) => {
-        
+    const convertScreenCoordinatesToCartesianPlane = (tangentX, tangentY, x1, y1, x2, y2) => {
+        const vectorA = [tangentX - x1, tangentY - y1]
+        const vectorB = [tangentX - x2, tangentY - y2]
+        return [vectorA, vectorB]
     }
 
     const angleBetweenTwoVectors = (Ux, Uy, Vx, Vy) => {
