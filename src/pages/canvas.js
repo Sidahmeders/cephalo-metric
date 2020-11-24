@@ -15,7 +15,6 @@ const Canvas = ({ coordinates }) => {
         // appendSmallCircles(c)
         // appendRectAngle(c)
         // appendLine1(c)
-        // appendLine2(c)
         // appendArc(c)
         appendPoints(c)
     }
@@ -57,19 +56,6 @@ const Canvas = ({ coordinates }) => {
 
     const appendLine1 = c => {
         //* appending a line
-        c.beginPath()
-        c.moveTo(50, 300)
-        c.lineTo(300, 100)
-        c.lineTo(300, 250)
-        c.moveTo(300, 250)
-        c.lineTo(100, 300)
-        c.lineWidth = 1
-        c.strokeStyle = "#00f"
-        c.stroke()
-    }
-
-    const appendLine2 = c => {
-        //* appending a line
         c.beginPath();
         c.moveTo(230, 460)
         c.lineTo(800, 300)
@@ -110,10 +96,11 @@ const Canvas = ({ coordinates }) => {
     const convertScreenCoordinatesToCartesianPlane = (tangentX, tangentY, x1, y1, x2, y2) => {
         const vectorA = [tangentX - x1, tangentY - y1]
         const vectorB = [tangentX - x2, tangentY - y2]
+
         return [...vectorA, ...vectorB]
     }
 
-    const angleBetweenTwoVectors = (Ux, Uy, Vx, Vy) => {
+    const clacAngleBetweenTwoVectors = (Ux, Uy, Vx, Vy) => {
         const UV_dot_Product = (Ux * (Vx)) + (Uy * (Vy))
         const U_magnitude = Math.sqrt(((Ux)**2) + ((Uy)**2))
         const V_magnitude = Math.sqrt(((Vx)**2) + ((Vy)**2))
