@@ -58,7 +58,7 @@ const Cephalo = () => {
     // }, [])
 
     const setGridprops = (e, x, y) => {
-        const { layerX, layerY } = e.nativeEvent
+        // const { layerX, layerY } = e.nativeEvent
         const newgrid = grid.map((row, rowIndex) => {
             return row.map((col, colIndex) => {
                 if (rowIndex == x && colIndex == y) {

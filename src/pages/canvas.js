@@ -93,12 +93,39 @@ const Canvas = ({ coordinates }) => {
 
     }
 
-    const convertScreenCoordinatesToCartesianPlane = (tangentX, tangentY, x1, y1, x2, y2) => {
-        const vectorA = [tangentX - x1, tangentY - y1]
-        const vectorB = [tangentX - x2, tangentY - y2]
+    const convertScreenCoordinatesToCartesianPlane = (originX, originY, x1, y1, x2, y2) => {
+        const vectorA = [originX - x1, originY - y1]
+        const vectorB = [originX - x2, originY - y2]
 
         return [...vectorA, ...vectorB]
     }
+
+    //java code
+    // public static class ConvertScreenToCartesianPlane {
+    //     Int originX = 0
+    //     Int originY = 0
+    //     Int x1 = 0
+    //     Int x2 = 0
+    //     Int y1 = 0
+    //     Int y2 = 0
+
+    //     ConvertScreenToCartesianPlane(originX, originY, x1, x2, y1, y2) {
+    //         this.originX = originX
+    //         this.originY = originY
+    //         this.x1 = x1
+    //         this.x2 = x2
+    //         this.y1 = y1
+    //         this.y2 =  y2
+    //     }
+
+    //     private static getVectors() {
+    //         ArrayList vectorA<Int> =  ArrayList(this.originX - this.x1, this.originY - this.y1)
+    //         ArrayList vectorB<Int> =  ArrayList(this.originY - this.x2, this.originY - this.y2)
+
+    //         return ArrayList(vectorA , vectorB)
+    //     }
+
+    // }
 
     const clacAngleBetweenTwoVectors = (Ux, Uy, Vx, Vy) => {
         const UV_dot_Product = (Ux * (Vx)) + (Uy * (Vy))
