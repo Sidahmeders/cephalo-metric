@@ -1,19 +1,28 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import '../styles/test.scss'
 
 const Test = ()  => {
 
+    const svg = useRef(null)
+
     let selectedElement = false
+
+    const getMousePosition = e => {
+        var CTM = svg.current.getScreenCTM()
+        return {
+          x: (e.clientX - CTM.e) / CTM.a,
+          y: (e.clientY - CTM.f) / CTM.d
+        }
+    }
 
     const startDrag = e => {
         const { layerX, layerY } = e.nativeEvent
         if (e.target.classList.contains('draggable')) {
             selectedElement = e.target
             e.preventDefault()
-            var dragX = e.clientX
-            var dragY = e.clientY
-            selectedElement.setAttributeNS(null, "cx", dragX)
-            selectedElement.setAttributeNS(null, "cy", dragY)
+            let coor = getMousePosition(e)
+            selectedElement.setAttributeNS(null, "cx", coor.x)
+            selectedElement.setAttributeNS(null, "cy", coor.y)
         }
         console.log(layerX, layerY)
     }
@@ -35,7 +44,7 @@ const Test = ()  => {
         circle4: { cx: 380, cy: 120 },
     })
 
-    const [svg, setSvg] = useState([
+    const [svgElements, setSvgElements] = useState([
         <rect key="ex-020-rect" x="10" y="10" width="780" height="460"></rect>,
         <line key="ex-020-line-1" x2="68" x1="68" y2="167" y1="31" stroke="skyblue" ></line>,
         <line key="ex-020-line-2" x2="359" x1="354" y2="26" y1="210" stroke="skyblue"></line>,
@@ -82,7 +91,7 @@ const Test = ()  => {
             fill="red" className="cat4 draggable"></circle>
     ])
 
-    const renderSvg = () => svg.map(s => s)
+    const renderSvg = () => svgElements.map(s => s)
 
     useEffect(() => {
         
@@ -91,7 +100,7 @@ const Test = ()  => {
     return (
         <div className="test">
             <h1>Test</h1>
-            <svg fill="#ddd" viewBox="0 0 400 240" width="800" height="480" >
+            <svg ref={svg} fill="#ddd" viewBox="0 0 400 240" width="800" height="480" >
                {renderSvg()}
             </svg>
         </div>
