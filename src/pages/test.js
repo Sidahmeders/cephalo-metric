@@ -5,33 +5,34 @@ const Test = ()  => {
 
     const svg = useRef(null)
 
-    let selectedElement = false
+    let selectedElement, offset = false
 
     const getMousePosition = e => {
-        var CTM = svg.current.getScreenCTM()
+        var currentTransformationMatrix = svg.current.getScreenCTM()
+        console.log(currentTransformationMatrix)
         return {
-          x: (e.clientX - CTM.e) / CTM.a,
-          y: (e.clientY - CTM.f) / CTM.d
+          x: (e.clientX - currentTransformationMatrix.e) / currentTransformationMatrix.a,
+          y: (e.clientY - currentTransformationMatrix.f) / currentTransformationMatrix.d
         }
     }
 
     const startDrag = e => {
-        const { layerX, layerY } = e.nativeEvent
+        // const { layerX, layerY } = e.nativeEvent
         if (e.target.classList.contains('draggable')) {
             selectedElement = e.target
-            e.preventDefault()
-            let coor = getMousePosition(e)
-            selectedElement.setAttributeNS(null, "cx", coor.x)
-            selectedElement.setAttributeNS(null, "cy", coor.y)
+            offset = getMousePosition(e)
+            offset.x -= parseFloat(selectedElement.getAttributeNS(null, "cx"))
+            offset.y -= parseFloat(selectedElement.getAttributeNS(null, "cy"))
         }
-        console.log(layerX, layerY)
+        // console.log(layerX, layerY)
     }
 
     const drag = e  => {
         if (selectedElement) {
           e.preventDefault()
-          let x = parseFloat(selectedElement.getAttributeNS(null, "x"))
-          selectedElement.setAttributeNS(null, "x", x + 0.1)
+          var coord = getMousePosition(e)
+          selectedElement.setAttributeNS(null, "cx", coord.x - offset.x)
+          selectedElement.setAttributeNS(null, "cy", coord.y - offset.y)
         }
     }
 
