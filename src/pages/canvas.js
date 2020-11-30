@@ -71,7 +71,9 @@ const Canvas = ({ coordinates }) => {
         for (let i = 0; i < coordinates.length; i++) {
             const { x , y } = coordinates[i]
             c.beginPath()
-            c.arc(x, y, 2, 0, 2*Math.PI, false);
+            c.arc(x, y, 2, 0, 2*Math.PI, false)
+            // c.quadraticCurveTo(230, 200, 250, 120)
+            // c.bezierCurveTo(290, -40, 300, 200, 400, 150)
             c.strokeStyle = '#f12'
             c.lineWidth = 3
             c.stroke()
@@ -81,12 +83,12 @@ const Canvas = ({ coordinates }) => {
                 let [preX, preY] = [startPoints.x, startPoints.y]
 
                 c.moveTo(preX, preY)
+                // c.quadraticCurveTo(preX + 30, preY + 30, x + 30, y + 30)
+                // c.bezierCurveTo(20, 40, x, y, preX + 20, preY + 20)
                 c.lineTo(x, y)
                 c.strokeStyle = "#00f"
                 c.stroke()
 
-                console.log(preX, preY)
-                console.log(x, y)
             }
         }
 
