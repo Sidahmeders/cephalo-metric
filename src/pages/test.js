@@ -5,7 +5,7 @@ const Test = ()  => {
     return (
         <div className="test">
             <h1>Test</h1>
-            <svg id="ex-020-stage" version="1.1" viewBox="0 0 400 240">   {/* content: 800 x 480 */}
+            <svg id="ex-020-stage" fill="#ddd" viewBox="0 0 400 240" width="800" height="480" > {/* content: 800 x 480 */}
                 <rect id="ex-020-rect" x="10" y="10" width="780" height="460"></rect>
                 <line id="ex-020-line-1" x2="68" x1="68" y2="167" y1="31"></line>
                 <line id="ex-020-line-2" x2="359" x1="354" y2="26" y1="210"></line>
