@@ -92,7 +92,6 @@ const Canvas = ({ coordinates }) => {
             }
         }
 
-
     }
 
     const convertScreenCoordinatesToCartesianPlanePoints = (originX, originY, x1, y1, x2, y2) => {
