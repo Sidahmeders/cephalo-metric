@@ -45,21 +45,7 @@ const Cephalo = () => {
 
     const pinPoinstOnCanvas = e => {
         const { layerX, layerY } = e.nativeEvent
-        const updatedCoordinates = []
-        let change = false
-        
-        coordinates.map(item => {
-            console.log(item)
-            if (layerX == item.x && layerY == item.y) {
-                item = { x: layerX, y: layerY }
-            }
-            updatedCoordinates.push(item)
-        })
-
-        console.log(updatedCoordinates)
-
-        if (change) setCoordinates(() => updatedCoordinates)
-        else setCoordinates(() => {
+        setCoordinates(() => {
             return [
                 ...coordinates,
                 { x: layerX, y: layerY }
