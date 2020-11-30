@@ -3,13 +3,23 @@ import '../styles/test.scss'
 
 const Test = ()  => {
 
+    const selectedElement = false
+
     const startDrag = e => {
         const { layerX, layerY } = e.nativeEvent
         if (e.target.classList.contains('draggable')) {
-            console.log('end of me now')
+            selectedElement = e.target
         }
         console.log(layerX, layerY)
     }
+
+    const drag = e  => {
+        if (selectedElement) {
+          e.preventDefault()
+          let x = parseFloat(selectedElement.getAttributeNS(null, "x"))
+          selectedElement.setAttributeNS(null, "x", x + 0.1)
+        }
+      }
 
     const [coordinates, setCoordinates] = useState({
         circle1: { cx: 36, cy: 160 },
@@ -26,43 +36,43 @@ const Test = ()  => {
         <circle 
             key="ex-020-p0" 
             onMouseDown={startDrag}
-            // onMouseMove={}
+            onMouseMove={drag}
             // onMouseUp={}
             // onMouseLeave={} 
             cx={coordinates.circle1.cx}  
             cy={coordinates.circle1.cy} 
             r="6" transform="translate(32 -129)" 
-            fill="red" className="cat1"></circle>,
+            fill="red" className="cat1 draggable"></circle>,
         <circle 
             key="ex-020-p1" 
             onMouseDown={startDrag}
-            // onMouseMove={}
+            onMouseMove={drag}
             // onMouseUp={}
             // onMouseLeave={}
             cx={coordinates.circle2.cx}  
             cy={coordinates.circle2.cy} 
             r="6" transform="translate(-12 127)" 
-            fill="#d66" className="cat2"></circle>,
+            fill="#d66" className="cat2 draggable"></circle>,
         <circle 
             key="ex-020-p2" 
             onMouseDown={startDrag}
-            // onMouseMove={}
+            onMouseMove={drag}
             // onMouseUp={}
             // onMouseLeave={} 
             cx={coordinates.circle3.cx}  
             cy={coordinates.circle3.cy} 
             r="6" transform="translate(119 -194)" 
-            fill="#d66" className="cat3"></circle>,
+            fill="#d66" className="cat3 draggable"></circle>,
         <circle 
             key="ex-020-p3" 
             onMouseDown={startDrag}
-            // onMouseMove={}
+            onMouseMove={drag}
             // onMouseUp={}
             // onMouseLeave={} 
             cx={coordinates.circle4.cx}  
             cy={coordinates.circle4.cy} 
             r="6" transform="translate(-26 90)" 
-            fill="red" className="cat4"></circle>
+            fill="red" className="cat4 draggable"></circle>
     ])
 
     const renderSvg = () => svg.map(s => s)
@@ -74,7 +84,6 @@ const Test = ()  => {
     return (
         <div className="test">
             <h1>Test</h1>
-            
             <svg fill="#ddd" viewBox="0 0 400 240" width="800" height="480" >
                {renderSvg()}
             </svg>
