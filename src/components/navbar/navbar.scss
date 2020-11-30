@@ -7,7 +7,6 @@
     
     ul {
         background-color: #334;
-        color: #ddf;
         list-style: none;
         display: flex;
         justify-content: space-evenly;
@@ -15,9 +14,11 @@
         padding: 20px;
         font-size: 22px;
 
-        li {
+        li a {
+            color: #ddf;
             font-family: Oxygen, Ubuntu, Cantarell, sans-serif;
             transition: .5s;
+            text-decoration: none;
 
             &:hover {
                 cursor: pointer;
