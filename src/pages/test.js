@@ -16,18 +16,31 @@ const Test = ()  => {
     }
 
     const startDrag = e => {
+        // const id = e.target.id
         if (e.target.classList.contains('draggable')) {
             selectedElement = e.target
             offset = getMousePosition(e)
             offset.x -= parseFloat(selectedElement.getAttributeNS(null, "cx"))
             offset.y -= parseFloat(selectedElement.getAttributeNS(null, "cy"))
+            // offset.x -= parseFloat(coordinates[id].cx)
+            // offset.y -= parseFloat(coordinates[id].cy)
         }
     }
 
     const drag = e  => {
+        // const id = e.target.id
         if (selectedElement) {
-            e.preventDefault()
+            e.preventDefault()    
             let coord = getMousePosition(e)
+            // setCoordinates(() => {
+            //     return {
+            //         ...coordinates,
+            //         [id]: {
+            //             cx: coord.x - offset.x,
+            //             cy: coord.y - offset.y
+            //         }
+            //     }
+            // })
             selectedElement.setAttributeNS(null, "cx", coord.x - offset.x)
             selectedElement.setAttributeNS(null, "cy", coord.y - offset.y)
         }
@@ -35,12 +48,12 @@ const Test = ()  => {
 
     const endDrag = e => selectedElement = null
 
-    // const [coordinates, setCoordinates] = useState({
-    //     circle1: { cx: 36, cy: 160 },
-    //     circle2: { cx: 80, cy: 40 },
-    //     circle3: { cx: 240, cy: 220 },
-    //     circle4: { cx: 380, cy: 120 },
-    // })
+    const [coordinates, setCoordinates] = useState({
+        circle1: { cx: 36, cy: 160 },
+        circle2: { cx: 80, cy: 40 },
+        circle3: { cx: 240, cy: 220 },
+        circle4: { cx: 380, cy: 120 },
+    })
 
     const [svgElements, setSvgElements] = useState([
         <rect key="ex-020-rect" x="10" y="10" width="780" height="460"></rect>,
@@ -49,6 +62,7 @@ const Test = ()  => {
         <path key="ex-020-path" d="M68,31C68,167 359,26 354,210" stroke="orange"></path>,
         <circle 
             key="ex-020-p0" 
+            id="circle1"
             onMouseDown={startDrag}
             onMouseMove={drag}
             onMouseUp={endDrag}
@@ -61,6 +75,7 @@ const Test = ()  => {
             fill="red" className="cat1 draggable"></circle>,
         <circle 
             key="ex-020-p1" 
+            id="circle2"
             onMouseDown={startDrag}
             onMouseMove={drag}
             onMouseUp={endDrag}
@@ -73,6 +88,7 @@ const Test = ()  => {
             fill="#d66" className="cat2 draggable"></circle>,
         <circle 
             key="ex-020-p2" 
+            id="circle3"
             onMouseDown={startDrag}
             onMouseMove={drag}
             onMouseUp={endDrag}
@@ -85,6 +101,7 @@ const Test = ()  => {
             fill="#d66" className="cat3 draggable"></circle>,
         <circle 
             key="ex-020-p3" 
+            id="circle4"
             onMouseDown={startDrag}
             onMouseMove={drag}
             onMouseUp={endDrag}
