@@ -9,7 +9,6 @@ const Test = ()  => {
 
     const getMousePosition = e => {
         let currentTransformationMatrix = svg.current.getScreenCTM()
-        console.log(currentTransformationMatrix)
         return {
           x: (e.clientX - currentTransformationMatrix.e) / currentTransformationMatrix.a,
           y: (e.clientY - currentTransformationMatrix.f) / currentTransformationMatrix.d
@@ -21,23 +20,21 @@ const Test = ()  => {
             selectedElement = e.target
             offset = getMousePosition(e)
 
-            // Get all the transforms currently on this element
-            let transforms = selectedElement.transform.baseVal
-
-            // Ensure the first transform is a translate transform
-            if (transforms.length === 0 ||
-                transforms.getItem(0).type !== SVGTransform.SVG_TRANSFORM_TRANSLATE) {
-              // Create an transform that translates by (0, 0)
-              let translate = svg.current.createSVGTransform()
-              translate.setTranslate(0, 0)
-              // Add the translation to the front of the transforms list
-              selectedElement.transform.baseVal.insertItemBefore(translate, 0)
-            }
-
-            // Get initial translation amount
-            transform = transforms.getItem(0)
-            offset.x -= transform.matrix.e
-            offset.y -= transform.matrix.f
+            // // Get all the transforms currently on this element
+            // let transforms = selectedElement.transform.baseVal
+            // // Ensure the first transform is a translate transform
+            // if (transforms.length === 0 ||
+            //     transforms.getItem(0).type !== SVGTransform.SVG_TRANSFORM_TRANSLATE) {
+            //   // Create an transform that translates by (0, 0)
+            //   let translate = svg.current.createSVGTransform()
+            //   translate.setTranslate(0, 0)
+            //   // Add the translation to the front of the transforms list
+            //   selectedElement.transform.baseVal.insertItemBefore(translate, 0)
+            // }
+            // // Get initial translation amount
+            // transform = transforms.getItem(0)
+            // offset.x -= transform.matrix.e
+            // offset.y -= transform.matrix.f
 
             offset.x -= parseFloat(selectedElement.getAttributeNS(null, "cx"))
             offset.y -= parseFloat(selectedElement.getAttributeNS(null, "cy"))
@@ -48,7 +45,7 @@ const Test = ()  => {
         if (selectedElement) {
             e.preventDefault()
             let coord = getMousePosition(e)
-            transform.setTranslate(coord.x - offset.x, coord.y - offset.y)
+            // transform.setTranslate(coord.x - offset.x, coord.y - offset.y)
             selectedElement.setAttributeNS(null, "cx", coord.x - offset.x)
             selectedElement.setAttributeNS(null, "cy", coord.y - offset.y)
         }
