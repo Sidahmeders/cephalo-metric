@@ -5,7 +5,7 @@ const Test = ()  => {
 
     const svg = useRef(null)
 
-    let selectedElement, offset
+    let selectedCircle, offset
 
     const getMousePosition = e => {
         let currentTransformationMatrix = svg.current.getScreenCTM()
@@ -18,10 +18,10 @@ const Test = ()  => {
     const startDrag = e => {
         // const id = e.target.id
         if (e.target.classList.contains('draggable')) {
-            selectedElement = e.target
+            selectedCircle = e.target
             offset = getMousePosition(e)
-            offset.x -= parseFloat(selectedElement.getAttributeNS(null, "cx"))
-            offset.y -= parseFloat(selectedElement.getAttributeNS(null, "cy"))
+            offset.x -= parseFloat(selectedCircle.getAttributeNS(null, "cx"))
+            offset.y -= parseFloat(selectedCircle.getAttributeNS(null, "cy"))
             // offset.x -= parseFloat(coordinates[id].cx)
             // offset.y -= parseFloat(coordinates[id].cy)
         }
@@ -29,7 +29,7 @@ const Test = ()  => {
 
     const drag = e  => {
         // const id = e.target.id
-        if (selectedElement) {
+        if (selectedCircle) {
             e.preventDefault()    
             let coord = getMousePosition(e)
             // setCoordinates(() => {
@@ -41,12 +41,12 @@ const Test = ()  => {
             //         }
             //     }
             // })
-            selectedElement.setAttributeNS(null, "cx", coord.x - offset.x)
-            selectedElement.setAttributeNS(null, "cy", coord.y - offset.y)
+            selectedCircle.setAttributeNS(null, "cx", coord.x - offset.x)
+            selectedCircle.setAttributeNS(null, "cy", coord.y - offset.y)
         }
     }
 
-    const endDrag = e => selectedElement = null
+    const endDrag = e => selectedCircle = null
 
     const [coordinates, setCoordinates] = useState({
         circle1: { cx: 36, cy: 160 },
