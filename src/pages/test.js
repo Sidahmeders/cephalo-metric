@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useRef, useState } from 'react'
 import '../styles/test.scss'
 
 const Test = ()  => {
@@ -17,14 +17,12 @@ const Test = ()  => {
     }
 
     const startDrag = e => {
-        // const { layerX, layerY } = e.nativeEvent
         if (e.target.classList.contains('draggable')) {
             selectedElement = e.target
             offset = getMousePosition(e)
             offset.x -= parseFloat(selectedElement.getAttributeNS(null, "cx"))
             offset.y -= parseFloat(selectedElement.getAttributeNS(null, "cy"))
         }
-        // console.log(layerX, layerY)
     }
 
     const drag = e  => {
@@ -93,10 +91,6 @@ const Test = ()  => {
     ])
 
     const renderSvg = () => svgElements.map(s => s)
-
-    useEffect(() => {
-        
-    }, [])
 
     return (
         <div className="test">
