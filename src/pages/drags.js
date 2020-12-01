@@ -3,9 +3,9 @@ import React, { useEffect, useRef } from 'react'
 
 const Drags = () => {
 
-    let mousePosition;
+    let mousePosition
     //track state of mousedown and up
-    let isMouseDown;
+    let isMouseDown
 
     //reference to the canvas element
     const canvas = useRef(null)
@@ -13,48 +13,57 @@ const Drags = () => {
     // render the canvas on screen
     const renderCanvas = () => {
         //reference to 2d context
-        let ctx = canvas.current.getContext("2d");
+        let ctx = canvas.current.getContext("2d")
         
         // Circle Class
         function Circle(x, y, r, fill) {
-            this.startingAngle = 0;
-            this.endAngle = 2 * Math.PI;
-            this.x = x;
-            this.y = y;
-            this.r = r;
-            this.fill = fill;
+            this.startingAngle = 0
+            this.endAngle = 2 * Math.PI
+            this.x = x
+            this.y = y
+            this.r = r
+            this.fill = fill
 
-            this.draw = function () {
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.r, this.startingAngle, this.endAngle);
-                ctx.fillStyle = this.fill;
-                ctx.fill();
+            this.draw = function() {
+                ctx.beginPath()
+                ctx.arc(this.x, this.y, this.r, this.startingAngle, this.endAngle)
+                ctx.fillStyle = this.fill
+                ctx.fill()
             }
         }
 
         //add listeners
-        document.addEventListener('mousemove', move, false);
-        document.addEventListener('mousedown', setDraggable, false);
-        document.addEventListener('mouseup', setDraggable, false);
+        document.addEventListener('mousemove', move, false)
+        document.addEventListener('mousedown', setDraggable, false)
+        document.addEventListener('mouseup', setDraggable, false)
+        document.addEventListener('click', pinPoint)
 
         //make some circles
-        let c1 = new Circle(50, 50, 9, "red");
-        let c2 = new Circle(200, 50, 9, "green");
-        let c3 = new Circle(350, 50, 9, "blue");
+        let c1 = new Circle(380, 40, 9, "#f77")
+        let c2 = new Circle(80, 40, 9, "#d44")
+        let c3 = new Circle(110, 220, 9, "#f77")
+        let c4 = new Circle(380, 220, 9, "#d44")
+
         //make a collection of circles
-        let circles = [c1, c2, c3];
+        let circles = [c1, c2, c3, c4]
+
+        function pinPoint(e) {
+            const { layerX, layerY } = e
+            let newCircle = new Circle(layerX, layerY, 9, "blue")
+            circles.push(newCircle)
+        }
 
         //main draw method
         function draw() {
             //clear canvas
-            ctx.clearRect(0, 0, canvas.current.width, canvas.current.height);
-            drawCircles();
+            ctx.clearRect(0, 0, canvas.current.width, canvas.current.height)
+            drawCircles()
         }
 
         //draw circles
         function drawCircles() {
             for (let i = circles.length - 1; i >= 0; i--) {
-                circles[i].draw();
+                circles[i].draw()
             }
         }
 
@@ -66,44 +75,44 @@ const Drags = () => {
 
         function move(e) {
             if (!isMouseDown) {
-                return;
+                return
             }
-            getMousePosition(e);
+            getMousePosition(e)
             //if any circle is focused
             if (focused.state) {
-                circles[focused.key].x = mousePosition.x;
-                circles[focused.key].y = mousePosition.y;
-                draw();
-                return;
+                circles[focused.key].x = mousePosition.x
+                circles[focused.key].y = mousePosition.y
+                draw()
+                return
             }
             //no circle currently focused check if circle is hovered
             for (let i = 0; i < circles.length; i++) {
                 if (intersects(circles[i])) {
-                    circles.move(i, 0);
-                    focused.state = true;
-                    break;
+                    circles.move(i, 0)
+                    focused.state = true
+                    break
                 }
             }
-            draw();
+            draw()
         }
 
         //set mousedown state
         function setDraggable(e) {
-            let t = e.type;
+            let t = e.type
             if (t === "mousedown") {
-                isMouseDown = true;
+                isMouseDown = true
             } else if (t === "mouseup") {
-                isMouseDown = false;
-                releaseFocus();
+                isMouseDown = false
+                releaseFocus()
             }
         }
 
         function releaseFocus() {
-            focused.state = false;
+            focused.state = false
         }
 
         function getMousePosition(e) {
-            let rect = canvas.current.getBoundingClientRect();
+            let rect = canvas.current.getBoundingClientRect()
             mousePosition = {
                 x: Math.round(e.x - rect.left),
                 y: Math.round(e.y - rect.top)
@@ -114,22 +123,22 @@ const Drags = () => {
         function intersects(circle) {
             // subtract the x, y coordinates from the mouse position to get coordinates
             // for the hotspot location and check against the area of the radius
-            let areaX = mousePosition.x - circle.x;
-            let areaY = mousePosition.y - circle.y;
+            let areaX = mousePosition.x - circle.x
+            let areaY = mousePosition.y - circle.y
             //return true if x^2 + y^2 <= radius squared.
-            return areaX * areaX + areaY * areaY <= circle.r * circle.r;
+            return areaX * areaX + areaY * areaY <= circle.r * circle.r
         }
 
         Array.prototype.move = function (old_index, new_index) {
             if (new_index >= this.length) {
-                let k = new_index - this.length;
+                let k = new_index - this.length
                 while ((k--) + 1) {
-                    this.push(undefined);
+                    this.push(undefined)
                 }
             }
-            this.splice(new_index, 0, this.splice(old_index, 1)[0]);
-        };
-        draw();
+            this.splice(new_index, 0, this.splice(old_index, 1)[0])
+        }
+        draw()
     }
 
     useEffect(() => {
@@ -138,7 +147,8 @@ const Drags = () => {
 
     return (
         <div className="drags">
-            <canvas ref={canvas} width="800px" height="500px" style={{background: "#ddd"}}></canvas>
+            <canvas ref={canvas} width="800px" height="500px" style={{background: "#ddd"}}>
+            </canvas>
         </div>
     )
 }
