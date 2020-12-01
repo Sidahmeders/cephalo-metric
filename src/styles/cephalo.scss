@@ -1,47 +1,48 @@
 
 .cephalo {
 
-    .calc-head {
-        background-color: #456;
-        z-index: 99;
+    .canvas {
+        margin-top: 10vh;
         position: absolute;
-        top: 15%;
-        right: 1%;
-        width: 30vw;
-        height: 80vh;
-        border: 2px solid red;
-        border-radius: 5px;
-        padding: 10px 0;
+        left: 0;
+        z-index: 1;
 
-        .buttons {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
+        .calc-head {
+            background-color: #456;
+            z-index: 99;
+            position: fixed;
+            top: 15%;
+            right: 1%;
+            width: 30vw;
+            height: auto;
+            border: 2px solid red;
+            border-radius: 5px;
+            padding: 10px 0;
 
-            span {
-                background-color: #ddd;
-                width: 55px;
-                border: 1px solid;
-                margin: 5px;
-                color: black;
+            .buttons {
                 display: flex;
+                flex-wrap: wrap;
                 justify-content: center;
-                padding: 5px 0;
-                border-radius: 3px;
-                transition: .3s;
 
-                &:hover {
-                    background-color: fff;
-                    cursor: copy;
-                    border-color: orange;
+                span {
+                    background-color: #ddd;
+                    width: 55px;
+                    border: 1px solid;
+                    margin: 5px;
+                    color: black;
+                    display: flex;
+                    justify-content: center;
+                    padding: 5px 0;
+                    border-radius: 3px;
+                    transition: .3s;
+
+                    &:hover {
+                        background-color: fff;
+                        cursor: copy;
+                        border-color: orange;
+                    }
                 }
             }
         }
-    }
-    .canvas {
-        margin-top: 10vh;
-        position: absolute; 
-        left: 0; 
-        z-index: 1;
     }
 }

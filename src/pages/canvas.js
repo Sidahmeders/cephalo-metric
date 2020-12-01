@@ -3,16 +3,34 @@ import React, { useRef, useEffect, useState } from 'react'
 
 const Canvas = () => {
 
-    const [coordinates, setCoordinates] = useState([])
+    const rules = [
+        'S', 'Po', 'PGs', 'R1', 'N', 'Ba', 'Li', 'R2',
+        'A', 'Or', 'PN', 'R3', 'B', 'Me', 'ANS', 'R4',
+        'Gn', 'Pog', 'PNS', 'Go', 'Co', 'Pt', 'U1',
+        'L1', 'PM', 'U1ap', 'L1ap', 'DC', 'OLp', 'OLa'
+    ]
+
+    const [entry, setEntry] = useState(null)
+
+    const getTheEntryLandMark = e => {
+        setEntry(() => e.target.innerText)
+    }
+
+    const [coordinates, setCoordinates] = useState({})
 
     const pinPoinstOnCanvas = e => {
         const { layerX, layerY } = e.nativeEvent
-        setCoordinates(() => {
-            return [
-                ...coordinates,
-                { x: layerX, y: layerY }
-            ]
-        })
+
+        console.log(entry)
+
+        if (entry) {
+            setCoordinates(() => {
+                return {
+                    ...coordinates,
+                    [entry]: { x: layerX, y: layerY }
+                }
+            })
+        }
     }
 
     const canvas = useRef(null)
@@ -24,7 +42,7 @@ const Canvas = () => {
 
         const c = ctx.getContext('2d')
 
-        appendSmallCircles(c)
+        // appendSmallCircles(c)
         // appendLine1(c)
         // appendArc(c)
         appendPoints(c)
@@ -70,7 +88,6 @@ const Canvas = () => {
     }
 
     const appendPoints = c => {
-        
         for (let i = 0; i < coordinates.length; i++) {
             const { x , y } = coordinates[i]
             c.beginPath()
@@ -94,7 +111,6 @@ const Canvas = () => {
 
             }
         }
-
     }
 
     const convertScreenCoordinatesToCartesianPlanePoints = (originX, originY, x1, y1, x2, y2) => {
@@ -117,11 +133,16 @@ const Canvas = () => {
 
     useEffect(() => {
         renderCanvas()
-    }, [coordinates])
+    }, [coordinates, entry])
 
     return (
         <div className="canvas" onClick={e => pinPoinstOnCanvas(e)}>
             <canvas ref={canvas}></canvas>
+            <div className="calc-head">
+                <div className="buttons" onClick={getTheEntryLandMark}>
+                    {rules.map(rule => <span key={rule}>{rule}</span>)}
+                </div>
+            </div>
         </div>
     )
 }
