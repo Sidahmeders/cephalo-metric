@@ -24,8 +24,7 @@ const Canvas = () => {
 
         const c = ctx.getContext('2d')
 
-        // appendSmallCircles(c)
-        // appendRectAngle(c)
+        appendSmallCircles(c)
         // appendLine1(c)
         // appendArc(c)
         appendPoints(c)
@@ -56,14 +55,6 @@ const Canvas = () => {
         c.arc(300, 300, 30, 0, Math.PI * 2, false)
         c.strokeStyle = "#007"
         c.stroke()
-    }
-
-    const appendRectAngle = c => {
-        //* appending rect
-        c.fillStyle = "#d89"
-        c.fillRect(900, 200, 100, 100)
-        c.fillStyle = "#99d"
-        c.fillRect(500, 100, 90, 90)
     }
 
     const appendLine1 = c => {
@@ -129,10 +120,7 @@ const Canvas = () => {
     }, [coordinates])
 
     return (
-        <div 
-            onClick={e => pinPoinstOnCanvas(e)} 
-            style={{marginTop: "10vh", position: "absolute", left: 0, zIndex: 1, background: "#d95"}}
-        >
+        <div className="canvas" onClick={e => pinPoinstOnCanvas(e)}>
             <canvas ref={canvas}></canvas>
         </div>
     )

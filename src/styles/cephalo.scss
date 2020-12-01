@@ -38,5 +38,10 @@
             }
         }
     }
-
+    .canvas {
+        margin-top: 10vh;
+        position: absolute; 
+        left: 0; 
+        z-index: 1;
+    }
 }
