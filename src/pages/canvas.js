@@ -16,21 +16,21 @@ const Canvas = () => {
         setEntry(() => e.target.innerText)
     }
 
-    const [coordinates, setCoordinates] = useState({})
+    const [coordinates, setCoordinates] = useState([])
 
     const pinPoinstOnCanvas = e => {
         const { layerX, layerY } = e.nativeEvent
 
         console.log(entry)
 
-        if (entry) {
+        // if (entry) {
             setCoordinates(() => {
-                return {
+                return [
                     ...coordinates,
-                    [entry]: { x: layerX, y: layerY }
-                }
+                    { x: layerX, y: layerY }
+                ]
             })
-        }
+        // }
     }
 
     const canvas = useRef(null)
@@ -133,7 +133,7 @@ const Canvas = () => {
 
     useEffect(() => {
         renderCanvas()
-    }, [coordinates, entry])
+    }, [coordinates])
 
     return (
         <div className="canvas" onClick={e => pinPoinstOnCanvas(e)}>
