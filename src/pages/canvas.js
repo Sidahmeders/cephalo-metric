@@ -1,5 +1,5 @@
 import React, { useRef, useEffect, useState } from 'react'
-
+import '../styles/drags.scss'
 
 const Canvas = () => {
 
@@ -14,6 +14,7 @@ const Canvas = () => {
 
     const getTheEntryLandMark = e => {
         setEntry(() => e.target.innerText)
+        console.log(e.target.innerText)
     }
 
     const [coordinates, setCoordinates] = useState([])
@@ -21,16 +22,14 @@ const Canvas = () => {
     const pinPoinstOnCanvas = e => {
         const { layerX, layerY } = e.nativeEvent
 
-        console.log(entry)
+        console.log(e.target)
 
-        // if (entry) {
-            setCoordinates(() => {
-                return [
-                    ...coordinates,
-                    { x: layerX, y: layerY }
-                ]
-            })
-        // }
+        setCoordinates(() => {
+            return [
+                ...coordinates,
+                { x: layerX, y: layerY }
+            ]
+        })
     }
 
     const canvas = useRef(null)
@@ -136,8 +135,8 @@ const Canvas = () => {
     }, [coordinates])
 
     return (
-        <div className="canvas" onClick={e => pinPoinstOnCanvas(e)}>
-            <canvas ref={canvas}></canvas>
+        <div className="canvas">
+            <canvas ref={canvas} onClick={e => pinPoinstOnCanvas(e)}></canvas>
             <div className="calc-head">
                 <div className="buttons" onClick={getTheEntryLandMark}>
                     {rules.map(rule => <span key={rule}>{rule}</span>)}

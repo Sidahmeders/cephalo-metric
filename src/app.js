@@ -5,6 +5,7 @@ import Navbar from './components/navbar/navbar.jsx'
 import HomePage from './pages/home'
 import CephaloPage from './pages/cephalo'
 import Test from './pages/test'
+import Drags from './pages/drags'
 
 const App = () => {
 
@@ -16,6 +17,7 @@ const App = () => {
             <Route path="/" exact  component={ HomePage } />
             <Route path="/cephalo" component={ CephaloPage } />
             <Route path="/test" component={ Test } />
+            <Route path="/drags" component={ Drags } />
           </Switch>
         </div>
     </Router>
