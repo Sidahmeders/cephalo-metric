@@ -1,7 +1,19 @@
-import React, { useRef, useEffect } from 'react'
+import React, { useRef, useEffect, useState } from 'react'
 
 
-const Canvas = ({ coordinates }) => {
+const Canvas = () => {
+
+    const [coordinates, setCoordinates] = useState([])
+
+    const pinPoinstOnCanvas = e => {
+        const { layerX, layerY } = e.nativeEvent
+        setCoordinates(() => {
+            return [
+                ...coordinates,
+                { x: layerX, y: layerY }
+            ]
+        })
+    }
 
     const canvas = useRef(null)
 
@@ -117,7 +129,10 @@ const Canvas = ({ coordinates }) => {
     }, [coordinates])
 
     return (
-        <div style={{marginTop: "10vh", position: "absolute", left: 0, zIndex: 1}}>
+        <div 
+            onClick={e => pinPoinstOnCanvas(e)} 
+            style={{marginTop: "10vh", position: "absolute", left: 0, zIndex: 1, background: "#d95"}}
+        >
             <canvas ref={canvas}></canvas>
         </div>
     )
