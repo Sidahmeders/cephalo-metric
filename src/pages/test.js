@@ -1,11 +1,11 @@
-import React, { useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import '../styles/test.scss'
 
 const Test = ()  => {
 
     const svg = useRef(null)
 
-    let selectedElement, offset, transform = false
+    let selectedElement, offset
 
     const getMousePosition = e => {
         let currentTransformationMatrix = svg.current.getScreenCTM()
@@ -19,23 +19,6 @@ const Test = ()  => {
         if (e.target.classList.contains('draggable')) {
             selectedElement = e.target
             offset = getMousePosition(e)
-
-            // // Get all the transforms currently on this element
-            // let transforms = selectedElement.transform.baseVal
-            // // Ensure the first transform is a translate transform
-            // if (transforms.length === 0 ||
-            //     transforms.getItem(0).type !== SVGTransform.SVG_TRANSFORM_TRANSLATE) {
-            //   // Create an transform that translates by (0, 0)
-            //   let translate = svg.current.createSVGTransform()
-            //   translate.setTranslate(0, 0)
-            //   // Add the translation to the front of the transforms list
-            //   selectedElement.transform.baseVal.insertItemBefore(translate, 0)
-            // }
-            // // Get initial translation amount
-            // transform = transforms.getItem(0)
-            // offset.x -= transform.matrix.e
-            // offset.y -= transform.matrix.f
-
             offset.x -= parseFloat(selectedElement.getAttributeNS(null, "cx"))
             offset.y -= parseFloat(selectedElement.getAttributeNS(null, "cy"))
         }
@@ -45,7 +28,6 @@ const Test = ()  => {
         if (selectedElement) {
             e.preventDefault()
             let coord = getMousePosition(e)
-            // transform.setTranslate(coord.x - offset.x, coord.y - offset.y)
             selectedElement.setAttributeNS(null, "cx", coord.x - offset.x)
             selectedElement.setAttributeNS(null, "cy", coord.y - offset.y)
         }
@@ -53,12 +35,12 @@ const Test = ()  => {
 
     const endDrag = e => selectedElement = null
 
-    const [coordinates, setCoordinates] = useState({
-        circle1: { cx: 36, cy: 160 },
-        circle2: { cx: 80, cy: 40 },
-        circle3: { cx: 240, cy: 220 },
-        circle4: { cx: 380, cy: 120 },
-    })
+    // const [coordinates, setCoordinates] = useState({
+    //     circle1: { cx: 36, cy: 160 },
+    //     circle2: { cx: 80, cy: 40 },
+    //     circle3: { cx: 240, cy: 220 },
+    //     circle4: { cx: 380, cy: 120 },
+    // })
 
     const [svgElements, setSvgElements] = useState([
         <rect key="ex-020-rect" x="10" y="10" width="780" height="460"></rect>,
@@ -71,8 +53,10 @@ const Test = ()  => {
             onMouseMove={drag}
             onMouseUp={endDrag}
             onMouseLeave={endDrag} 
-            cx={coordinates.circle1.cx}  
+            cx={coordinates.circle1.cx}
+            // cx="36"
             cy={coordinates.circle1.cy} 
+            // cy="160"
             r="6" transform="translate(32 -129)" 
             fill="red" className="cat1 draggable"></circle>,
         <circle 
@@ -81,8 +65,10 @@ const Test = ()  => {
             onMouseMove={drag}
             onMouseUp={endDrag}
             onMouseLeave={endDrag}
-            cx={coordinates.circle2.cx}  
+            cx={coordinates.circle2.cx}
+            // cx="80"
             cy={coordinates.circle2.cy} 
+            // cy="40"
             r="6" transform="translate(-12 127)" 
             fill="#d66" className="cat2 draggable"></circle>,
         <circle 
@@ -91,8 +77,10 @@ const Test = ()  => {
             onMouseMove={drag}
             onMouseUp={endDrag}
             onMouseLeave={endDrag} 
-            cx={coordinates.circle3.cx}  
+            cx={coordinates.circle3.cx}
+            // cx="240"
             cy={coordinates.circle3.cy} 
+            // cy="220"
             r="6" transform="translate(119 -194)" 
             fill="#d66" className="cat3 draggable"></circle>,
         <circle 
@@ -102,7 +90,9 @@ const Test = ()  => {
             onMouseUp={endDrag}
             onMouseLeave={endDrag} 
             cx={coordinates.circle4.cx}  
+            // cx="380"
             cy={coordinates.circle4.cy} 
+            // cy="120"
             r="6" transform="translate(-26 90)" 
             fill="red" className="cat4 draggable"></circle>
     ])
