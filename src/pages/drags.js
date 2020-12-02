@@ -141,9 +141,9 @@ const Drags = () => {
         draw()
     }
 
-    useEffect(() => {
-        renderCanvas()
-    }, [])
+    // useEffect(() => {
+    //     renderCanvas()
+    // }, [])
 
     return (
         <div className="drags">

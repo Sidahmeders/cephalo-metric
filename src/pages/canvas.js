@@ -83,6 +83,11 @@ const Canvas = () => {
         }
     }
 
+    const clearCanvas = c => {
+        c.clearRect(0, 0, canvas.current.width, canvas.current.height)
+        
+    }
+
     const convertScreenCoordinatesToCartesianPlanePoints = (originX, originY, x1, y1, x2, y2) => {
         const vectorA = [originX - x1, originY - y1]
         const vectorB = [originX - x2, originY - y2]
