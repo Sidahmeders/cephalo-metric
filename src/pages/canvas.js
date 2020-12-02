@@ -63,29 +63,50 @@ const Canvas = () => {
     const appendPoints = c => {
         for (let i = 0; i < coordinates.length; i++) {
             const { x , y } = coordinates[i]
-            c.beginPath()
-            c.arc(x, y, 6, 0, 2*Math.PI, false)
-            // c.quadraticCurveTo(230, 200, 250, 120)
-            // c.bezierCurveTo(290, -40, 300, 200, 400, 150)
-            c.lineWidth = 2
-            c.fillStyle = "red"
-            c.fill()
+            let c1 = new Circle(c, x, y)
+            c1.draw()
 
             if ((i + 1) % 2 == 0) {
                 const startPoints = coordinates[i-1]
                 let [preX, preY] = [startPoints.x, startPoints.y]
-
-                c.moveTo(preX, preY)
-                c.lineTo(x, y)
-                c.strokeStyle = "#669"
-                c.stroke()
+                let l1 = new Line(c, preX, preY, x, y)
+                l1.draw()
             }
         }
     }
 
-    const clearCanvas = c => {
+    // Circle Class
+    function Circle(c, x, y) {
+        this.x = x
+        this.y = y
+
+        this.draw = function() {
+            c.beginPath()
+            c.arc(x, y, 6, 0, 2*Math.PI, false)
+            c.lineWidth = 2
+            c.fillStyle = 'red'
+            c.fill()
+        }
+    }
+
+    // Line Class
+    function Line(c, preX, preY, x, y) {
+        this.preX = preX
+        this.preY = preY
+        this.x = x
+        this.y = y
+
+        this.draw = function() {
+            c.moveTo(this.preX, this.preY)
+            c.lineTo(this.x, this.y)
+            c.strokeStyle = "#669"
+            c.stroke()
+        }
+    }
+
+    const updateCanvas = c => {
         c.clearRect(0, 0, canvas.current.width, canvas.current.height)
-        
+
     }
 
     const convertScreenCoordinatesToCartesianPlanePoints = (originX, originY, x1, y1, x2, y2) => {
