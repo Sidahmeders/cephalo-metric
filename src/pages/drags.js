@@ -6,6 +6,8 @@ const Drags = () => {
     let mousePosition
     //track state of mousedown and up
     let isMouseDown
+    // check is the user selected a point
+    let isPointSelected = false
 
     //reference to the canvas element
     const canvas = useRef(null)
@@ -36,7 +38,8 @@ const Drags = () => {
         document.addEventListener('mousemove', move, false)
         document.addEventListener('mousedown', setDraggable, false)
         document.addEventListener('mouseup', setDraggable, false)
-        document.addEventListener('click', addPoint)
+
+        document.addEventListener('click', addPoints)
 
         //make some circles
         let c1 = new Circle(380, 40, 9, "#f77")
@@ -47,10 +50,12 @@ const Drags = () => {
         //make a collection of circles
         let circles = [c1, c2, c3, c4]
 
-        function addPoint(e) {
-            const { layerX, layerY } = e
-            let newCircle = new Circle(layerX, layerY, 9, "blue")
-            circles.push(newCircle)
+        function addPoints(e) {
+            if (isPointSelected) {
+                const { layerX, layerY } = e
+                let newCircle = new Circle(layerX, layerY, 9, "blue")
+                circles.push(newCircle)
+            }
         }
 
         //main draw method
@@ -141,9 +146,9 @@ const Drags = () => {
         draw()
     }
 
-    // useEffect(() => {
-    //     renderCanvas()
-    // }, [])
+    useEffect(() => {
+        renderCanvas()
+    }, [])
 
     return (
         <div className="drags">
