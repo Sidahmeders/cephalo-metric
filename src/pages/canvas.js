@@ -3,6 +3,13 @@ import React, { useEffect, useState, useRef } from 'react'
 
 const Drags = () => {
 
+    //track mouse position on mousemove
+    let mousePosition
+    //track state of mousedown and up
+    let isMouseDown
+    // check is the user selected a point
+    let isPointSelected = false
+
     // the cephalo-metric calc-points
     const rules = [
         'S', 'Po', 'PGs', 'R1', 'N', 'Ba', 'Li', 'R2',
@@ -11,19 +18,7 @@ const Drags = () => {
         'L1', 'PM', 'U1ap', 'L1ap', 'DC', 'OLp', 'OLa'
     ]
 
-    const [entry, setEntry] = useState(null)
-
-    const getTheEntryLandMark = e => {
-        setEntry(() => e.target.innerText)
-        console.log(e.target.innerText)
-    }
-
-    //track mouse position on mousemove
-    let mousePosition
-    //track state of mousedown and up
-    let isMouseDown
-    // check is the user selected a point
-    let isPointSelected = false
+    const getTheEntryLandMark = e => isPointSelected = e.target.innerText
 
     //reference to the canvas element
     const canvas = useRef(null)
@@ -52,11 +47,10 @@ const Drags = () => {
         }
 
         //add listeners
-        document.addEventListener('mousemove', move, false)
-        document.addEventListener('mousedown', setDraggable, false)
-        document.addEventListener('mouseup', setDraggable, false)
-
-        document.addEventListener('click', addPoints)
+        document.addEventListener('mousemove', move)
+        document.addEventListener('mousedown', setDraggable)
+        document.addEventListener('mouseup', setDraggable)
+        document.addEventListener('mouseup', addPoints)
 
         //make some circles
         let c1 = new Circle(380, 40)
@@ -69,9 +63,12 @@ const Drags = () => {
 
         // append a new point to the canvas
         function addPoints(e) {
+            console.log('addPoints', isPointSelected)
             if (isPointSelected) {
                 const { layerX, layerY } = e
                 circles.push(new Circle(layerX, layerY))
+                drawCircles()
+                isPointSelected = false
             }
         }
 
@@ -189,8 +186,8 @@ const Drags = () => {
         <div className="canvas">
             <canvas ref={canvas}></canvas>
             <div className="calc-head">
-                <div className="buttons" onClick={getTheEntryLandMark}>
-                    {rules.map(rule => <span key={rule}>{rule}</span>)}
+                <div className="buttons">
+                    {rules.map(rule => <span onClick={getTheEntryLandMark} key={rule}>{rule}</span>)}
                 </div>
             </div>
         </div>
