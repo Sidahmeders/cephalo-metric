@@ -21,9 +21,6 @@ const Canvas = () => {
 
     const pinPoinstOnCanvas = e => {
         const { layerX, layerY } = e.nativeEvent
-
-        console.log(e.target)
-
         setCoordinates(() => {
             return [
                 ...coordinates,
@@ -38,12 +35,23 @@ const Canvas = () => {
         const ctx = canvas.current
         ctx.width = innerWidth
         ctx.height = innerHeight / 1.12
-
         const c = ctx.getContext('2d')
 
+        //main draw method
+        this.draw = function() {
+            //clear canvas
+            ctx.clearRect(0, 0, canvas.current.width, canvas.current.height)
+            drawCircles()
+        }
+
+        //draw circles
+        this.drawCircles = function() {
+            for (let i = circles.length - 1; i >= 0; i--) {
+                circles[i].draw()
+            }
+        }
+
         // appendSmallCircles(c)
-        // appendLine1(c)
-        // appendArc(c)
         appendPoints(c)
     }
 
@@ -64,26 +72,6 @@ const Canvas = () => {
                 cir()
             }, 100 * i)
         }
-    }
-
-    const appendArc = c => {
-        //* appending Arc
-        c.beginPath()
-        c.arc(300, 300, 30, 0, Math.PI * 2, false)
-        c.strokeStyle = "#007"
-        c.stroke()
-    }
-
-    const appendLine1 = c => {
-        //* appending a line
-        c.beginPath();
-        c.moveTo(230, 460)
-        c.lineTo(800, 300)
-        c.lineTo(300, 250)
-        c.moveTo(380, 200)
-        c.lineTo(350, 500)
-        c.strokeStyle = "#00f"
-        c.stroke()
     }
 
     const appendPoints = c => {

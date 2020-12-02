@@ -36,7 +36,7 @@ const Drags = () => {
         document.addEventListener('mousemove', move, false)
         document.addEventListener('mousedown', setDraggable, false)
         document.addEventListener('mouseup', setDraggable, false)
-        document.addEventListener('click', pinPoint)
+        document.addEventListener('click', addPoint)
 
         //make some circles
         let c1 = new Circle(380, 40, 9, "#f77")
@@ -47,7 +47,7 @@ const Drags = () => {
         //make a collection of circles
         let circles = [c1, c2, c3, c4]
 
-        function pinPoint(e) {
+        function addPoint(e) {
             const { layerX, layerY } = e
             let newCircle = new Circle(layerX, layerY, 9, "blue")
             circles.push(newCircle)
