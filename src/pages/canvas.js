@@ -120,7 +120,7 @@ const Canvas = () => {
     //main draw method
     const draw = c => {
         //clear canvas
-        c.clearRect(0, 0, 980, 500)
+        c.clearRect(0, 0, canvas.current.width, canvas.current.height)
         drawCircles()
     }
 
