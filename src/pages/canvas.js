@@ -1,4 +1,5 @@
 import React, { useRef, useEffect, useState } from 'react'
+import ReactDOM from 'react-dom'
 import '../styles/drags.scss'
 
 const Canvas = () => {
@@ -39,6 +40,7 @@ const Canvas = () => {
 
         // appendSmallCircles(c)
         appendPoints(c)
+        draw(c)
     }
 
     const appendSmallCircles = c => {
@@ -60,11 +62,14 @@ const Canvas = () => {
         }
     }
 
+    const circles = []
+
     const appendPoints = c => {
         for (let i = 0; i < coordinates.length; i++) {
             const { x , y } = coordinates[i]
-            let c1 = new Circle(c, x, y)
-            c1.draw()
+            // let c1 = new Circle(c, x, y)
+            // c1.draw()
+            circles.push(new Circle(c, x, y))
 
             if ((i + 1) % 2 == 0) {
                 const startPoints = coordinates[i-1]
@@ -104,10 +109,100 @@ const Canvas = () => {
         }
     }
 
-    const updateCanvas = c => {
-        c.clearRect(0, 0, canvas.current.width, canvas.current.height)
+    let mousePosition
+    //track state of mousedown and up
+    let isMouseDown
 
+    document.addEventListener('mousemove', move, false)
+    document.addEventListener('mousedown', setDraggable, false)
+    document.addEventListener('mouseup', setDraggable, false)
+
+    //main draw method
+    const draw = c => {
+        //clear canvas
+        c.clearRect(0, 0, 980, 500)
+        drawCircles()
     }
+
+    //draw circles
+    const drawCircles = () => {
+        for (let i = circles.length - 1; i >= 0; i--) {
+            circles[i].draw()
+        }
+    }
+
+    //key track of circle focus and focused index
+    let focused = {
+    key: 0,
+    state: false
+    }
+
+    function move(e) {
+        if (!isMouseDown) {
+            return
+        }
+        getMousePosition(e)
+        //if any circle is focused
+        if (focused.state) {
+            circles[focused.key].x = mousePosition.x
+            circles[focused.key].y = mousePosition.y
+            draw()
+            return
+        }
+        //no circle currently focused check if circle is hovered
+        for (let i = 0; i < circles.length; i++) {
+            if (intersects(circles[i])) {
+                circles.move(i, 0)
+                focused.state = true
+                break
+            }
+        }
+        draw()
+    }
+
+    //set mousedown state
+    function setDraggable(e) {
+        let t = e.type
+        if (t === "mousedown") {
+            isMouseDown = true
+        } else if (t === "mouseup") {
+            isMouseDown = false
+            releaseFocus()
+        }
+    }
+
+    function releaseFocus() {
+        focused.state = false
+    }
+
+    function getMousePosition(e) {
+        let rect = ReactDOM.findDOMNode(canvas.current).getBoundingClientRect()
+        mousePosition = {
+            x: Math.round(e.x - rect.left),
+            y: Math.round(e.y - rect.top)
+        }
+    }
+
+    //detects whether the mouse cursor is between x and y relative to the radius specified
+    function intersects(circle) {
+        // subtract the x, y coordinates from the mouse position to get coordinates
+        // for the hotspot location and check against the area of the radius
+        let areaX = mousePosition.x - circle.x
+        let areaY = mousePosition.y - circle.y
+        //return true if x^2 + y^2 <= radius squared.
+        return areaX * areaX + areaY * areaY <= circle.r * circle.r
+    }
+
+    Array.prototype.move = function (old_index, new_index) {
+        if (new_index >= this.length) {
+            let k = new_index - this.length
+            while ((k--) + 1) {
+                this.push(undefined)
+            }
+        }
+        this.splice(new_index, 0, this.splice(old_index, 1)[0])
+    }
+
 
     const convertScreenCoordinatesToCartesianPlanePoints = (originX, originY, x1, y1, x2, y2) => {
         const vectorA = [originX - x1, originY - y1]
