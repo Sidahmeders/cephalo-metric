@@ -1,5 +1,5 @@
 import React, { useRef, useEffect, useState } from 'react'
-import '../styles/drags.scss'
+import '../styles/cephalo.scss'
 
 const Canvas = () => {
 
@@ -129,6 +129,7 @@ const Canvas = () => {
     }, [coordinates])
 
     return (
+        <div className="cephalo">
         <div className="canvas">
             <canvas ref={canvas} onClick={e => pinPoinstOnCanvas(e)}></canvas>
             <div className="calc-head">
@@ -136,6 +137,7 @@ const Canvas = () => {
                     {rules.map(rule => <span key={rule}>{rule}</span>)}
                 </div>
             </div>
+        </div>
         </div>
     )
 }

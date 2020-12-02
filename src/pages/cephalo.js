@@ -9,18 +9,8 @@ const Cephalo = () => {
         <div className="cephalo">
             <Canvas/>
             <h2 style={{marginTop: "15vh", color: "#592"}}>@DENTECH</h2>
-            <div className="war">
-                <img src={skull} alt="skull" style={{
-                    position: "absolute", left: "10vw"
-                }} />
-                <div style={{
-                    display: 'flex',
-                    position: 'absolute',
-                    top: 65,
-                    left: 0,
-                    zIndex: 2
-                }}>
-                </div>
+            <div>
+                <img src={skull} alt="skull"/>
             </div>
         </div>
     )
