@@ -37,20 +37,6 @@ const Canvas = () => {
         ctx.height = innerHeight / 1.12
         const c = ctx.getContext('2d')
 
-        //main draw method
-        this.draw = function() {
-            //clear canvas
-            ctx.clearRect(0, 0, canvas.current.width, canvas.current.height)
-            drawCircles()
-        }
-
-        //draw circles
-        this.drawCircles = function() {
-            for (let i = circles.length - 1; i >= 0; i--) {
-                circles[i].draw()
-            }
-        }
-
         // appendSmallCircles(c)
         appendPoints(c)
     }
@@ -78,24 +64,21 @@ const Canvas = () => {
         for (let i = 0; i < coordinates.length; i++) {
             const { x , y } = coordinates[i]
             c.beginPath()
-            c.arc(x, y, 2, 0, 2*Math.PI, false)
+            c.arc(x, y, 6, 0, 2*Math.PI, false)
             // c.quadraticCurveTo(230, 200, 250, 120)
             // c.bezierCurveTo(290, -40, 300, 200, 400, 150)
-            c.strokeStyle = '#f12'
-            c.lineWidth = 3
-            c.stroke()
+            c.lineWidth = 2
+            c.fillStyle = "red"
+            c.fill()
 
             if ((i + 1) % 2 == 0) {
                 const startPoints = coordinates[i-1]
                 let [preX, preY] = [startPoints.x, startPoints.y]
 
                 c.moveTo(preX, preY)
-                // c.quadraticCurveTo(preX + 30, preY + 30, x + 30, y + 30)
-                // c.bezierCurveTo(20, 40, x, y, preX + 20, preY + 20)
                 c.lineTo(x, y)
-                c.strokeStyle = "#00f"
+                c.strokeStyle = "#669"
                 c.stroke()
-
             }
         }
     }
