@@ -32,17 +32,33 @@ const Drags = () => {
         //reference to 2d context
         let c = ctx.getContext("2d")
         
-        // Circle Class
-        function Circle(x, y) {
-            this.x = x
-            this.y = y
-            this.r = 8
-
-            this.draw = function() {
+        class Circle {
+            constructor(x, y) {
+                this.x = x
+                this.y = y
+                this.r = 8
+            }
+            draw() {
                 c.beginPath()
                 c.arc(this.x, this.y, this.r, 0, 2*Math.PI)
                 c.fillStyle = 'red'
                 c.fill()
+            }
+        }
+
+        class Line {
+            constructor(preX, preY, x, y) {
+                this.preX = preX
+                this.preY = preY
+                this.x = x
+                this.y = y
+            }
+            draw() {
+                c.moveTo(this.preX, this.preY)
+                c.lineTo(this.x, this.y)
+                c.lineWidth = 1.5
+                c.strokeStyle = "#669"
+                c.stroke()
             }
         }
 
@@ -57,13 +73,16 @@ const Drags = () => {
         let c2 = new Circle(80, 40)
         let c3 = new Circle(110, 220)
         let c4 = new Circle(380, 220)
+        //make lines
+        let l1 = new Line(380, 40, 80, 40)
+        let l2 = new Line(110, 220, 380, 220)
 
-        //make a collection of circles
+        //make a collection of circles & lines
         let circles = [c1, c2, c3, c4]
+        let lines = [l1, l2]
 
         // append a new point to the canvas
         function addPoints(e) {
-            console.log('addPoints', isPointSelected)
             if (isPointSelected) {
                 const { layerX, layerY } = e
                 circles.push(new Circle(layerX, layerY))
@@ -84,6 +103,9 @@ const Drags = () => {
             for (let i = circles.length - 1; i >= 0; i--) {
                 circles[i].draw()
             }
+            for (let i = lines.length - 1; i >= 0; i--) {
+                lines[i].draw()
+            }
         }
 
         //key track of circle focus and focused index
@@ -93,9 +115,7 @@ const Drags = () => {
         }
 
         function move(e) {
-            if (!isMouseDown) {
-                return
-            }
+            if (!isMouseDown) return
             getMousePosition(e)
             //if any circle is focused
             if (focused.state) {
@@ -145,7 +165,7 @@ const Drags = () => {
             let areaX = mousePosition.x - circle.x
             let areaY = mousePosition.y - circle.y
             //return true if x^2 + y^2 <= radius squared.
-            return areaX * areaX + areaY * areaY <= circle.r * circle.r
+            return areaX**2 + areaY**2 <= circle.r**2
         }
 
         Array.prototype.move = function (old_index, new_index) {
