@@ -24,12 +24,9 @@ const Drags = () => {
 
     const getThePointLandMark = e => { 
         selectedPoint = e.target.innerText
-        // let newRules = []
         rules.forEach(rule => {
             if (Object.keys(rule)[0] == selectedPoint) rule[selectedPoint] = true
-            // newRules.push(rule)
         })
-        // setRules(() => newRules)
     }
 
     //reference to the canvas element
