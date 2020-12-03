@@ -84,7 +84,7 @@ const Drags = () => {
             if (isPointSelected) {
                 const { layerX, layerY } = e
                 circles.push(new Circle(layerX, layerY))
-                //check if have both (start & finsh) points of the line
+                //check if we have both (start & finsh) points of the line
                 if (tempLineValues.length < 4) {
                     tempLineValues.push(layerX, layerY)
                 }
@@ -127,6 +127,7 @@ const Drags = () => {
             if (focused.state) {
                 circles[focused.key].x = mousePosition.x
                 circles[focused.key].y = mousePosition.y
+                // ?????????????????????????????????????
                 lines[focused.key].preX = mousePosition.x
                 lines[focused.key].preY = mousePosition.y
                 draw()
@@ -135,7 +136,7 @@ const Drags = () => {
             //no circle currently focused check if circle is hovered
             for (let i = 0; i < circles.length; i++) {
                 if (intersects(circles[i])) {
-                    circles.move(i, 0)
+                    circles.moveIndex(i, 0)
                     focused.state = true
                     break
                 }
@@ -176,7 +177,8 @@ const Drags = () => {
             return areaX**2 + areaY**2 <= circle.r**2
         }
 
-        Array.prototype.move = function (old_index, new_index) {
+        // change the dragging-focus between circles
+        Array.prototype.moveIndex = function (old_index, new_index) {
             if (new_index >= this.length) {
                 let k = new_index - this.length
                 while ((k--) + 1) {
@@ -185,6 +187,7 @@ const Drags = () => {
             }
             this.splice(new_index, 0, this.splice(old_index, 1)[0])
         }
+        
         draw()
     }
 
