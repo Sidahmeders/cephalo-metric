@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 
 
 const Drags = () => {
@@ -24,9 +24,12 @@ const Drags = () => {
 
     const getThePointLandMark = e => { 
         selectedPoint = e.target.innerText
+        // let newRules = []
         rules.forEach(rule => {
             if (Object.keys(rule)[0] == selectedPoint) rule[selectedPoint] = true
+            // newRules.push(rule)
         })
+        // setRules(() => newRules)
     }
 
     //reference to the canvas element
@@ -253,7 +256,7 @@ const Drags = () => {
                         return <span 
                                     className={ !value ? "unSelected" : "selected" } 
                                     key={ index } onClick={ getThePointLandMark }
-                                >{ key }</span>
+                                >{ value.toString() }</span>
                     })}
                 </div>
             </div>
