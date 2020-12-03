@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useRef } from 'react'
 
 
 const Drags = () => {
@@ -53,6 +53,7 @@ const Drags = () => {
             // append the button to the div element
             calculator.appendChild(span)
         })
+        // finally replace the refrence div with our new created-div calculator
         calcHead.current.replaceWith(calculator)
     }
 
@@ -68,13 +69,16 @@ const Drags = () => {
         //reference to 2d context
         let c = ctx.getContext("2d")
         
+        // Circle class to draw on the canvas
         class Circle {
+            // circle props
             constructor(x, y, cirRef) {
                 this.x = x
                 this.y = y
                 this.r = 7
                 this.cirRef = cirRef
             }
+            // circle drawing method
             draw() {
                 c.beginPath()
                 c.arc(this.x, this.y, this.r, 0, 2*Math.PI)
@@ -83,7 +87,9 @@ const Drags = () => {
             }
         }
 
+        // Line class to draw on the canvas
         class Line {
+            // line props
             constructor(start, end) {
                 this.preX = start[0]
                 this.preY = start[1]
@@ -92,6 +98,7 @@ const Drags = () => {
                 this.startCirRef = start[2]
                 this.endCirRef = end[2]
             }
+            // line drawing method
             draw() {
                 c.moveTo(this.preX, this.preY)
                 c.lineTo(this.x, this.y)
