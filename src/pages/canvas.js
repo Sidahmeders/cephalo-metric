@@ -88,25 +88,25 @@ const Drags = () => {
         }
 
         // Line class to draw on the canvas
-        class Line {
-            // line props
-            constructor(start, end) {
-                this.preX = start[0]
-                this.preY = start[1]
-                this.x = end[0]
-                this.y = end[1]
-                this.startCirRef = start[2]
-                this.endCirRef = end[2]
-            }
-            // line drawing method
-            draw() {
-                c.moveTo(this.preX, this.preY)
-                c.lineTo(this.x, this.y)
-                c.lineWidth = 1.5
-                c.strokeStyle = "#669"
-                c.stroke()
-            }
-        }
+        // class Line {
+        //     // line props
+        //     constructor(start, end) {
+        //         this.preX = start[0]
+        //         this.preY = start[1]
+        //         this.x = end[0]
+        //         this.y = end[1]
+        //         this.startCirRef = start[2]
+        //         this.endCirRef = end[2]
+        //     }
+        //     // line drawing method
+        //     draw() {
+        //         c.moveTo(this.preX, this.preY)
+        //         c.lineTo(this.x, this.y)
+        //         c.lineWidth = 1.5
+        //         c.strokeStyle = "#669"
+        //         c.stroke()
+        //     }
+        // }
 
         //add listeners
         document.addEventListener('mousemove', dragPoints)
@@ -115,13 +115,13 @@ const Drags = () => {
         document.addEventListener('mouseup', addPoints)
 
         //make some circles
-        let c1 = new Circle(380, 40, 0)
-        let c2 = new Circle(80, 40, 1)
+        // let c1 = new Circle(380, 40, 0)
+        // let c2 = new Circle(80, 40, 1)
         //make lines
-        let l1 = new Line([380, 40, 0], [80, 40, 1])
+        // let l1 = new Line([380, 40, 0], [80, 40, 1])
         //make a collection of circles & lines
-        let circles = [c1, c2]
-        let lines = [l1]
+        let circles = [] //[c1, c2]
+        // let lines = [l1]
         // keep the start and finsh of the line
         let tempLineValues = []
 
@@ -132,13 +132,13 @@ const Drags = () => {
                 const { layerX, layerY } = e
                 circles.push(new Circle(layerX, layerY, circles.length))
                 //check if we have both (start & finsh) points of the line
-                if (tempLineValues.length < 2) {
-                    tempLineValues.push([layerX, layerY, circles.length-1])
-                }
-                if (tempLineValues.length == 2) {
-                    lines.push(new Line(...tempLineValues))
-                    tempLineValues = []
-                }
+                // if (tempLineValues.length < 2) {
+                //     tempLineValues.push([layerX, layerY, circles.length-1])
+                // }
+                // if (tempLineValues.length == 2) {
+                //     lines.push(new Line(...tempLineValues))
+                //     tempLineValues = []
+                // }
                 drawCircles()
                 selectedPoint = false
             }
@@ -156,9 +156,9 @@ const Drags = () => {
             for (let i = circles.length - 1; i >= 0; i--) {
                 circles[i].draw()
             }
-            for (let i = lines.length - 1; i >= 0; i--) {
-                lines[i].draw()
-            }
+            // for (let i = lines.length - 1; i >= 0; i--) {
+            //     lines[i].draw()
+            // }
         }
 
         //key track of circle focus and focused index
@@ -179,19 +179,19 @@ const Drags = () => {
                 circles[focused.key].x = xPos
                 circles[focused.key].y = yPos
                 //get the Circle and Line Refrence
-                let cRef = circles[focused.key].cirRef
-                let lineIndex = Math.floor(cRef/2)
-                let ll1 = lines[lineIndex].startCirRef
-                let ll2 = lines[lineIndex].endCirRef
+                // let cRef = circles[focused.key].cirRef
+                // let lineIndex = Math.floor(cRef/2)
+                // let ll1 = lines[lineIndex].startCirRef
+                // let ll2 = lines[lineIndex].endCirRef
                 //chek if the circle refrences the right line endpoint and update it's coordinates accordingly
-                if (cRef === ll1) {
-                    lines[lineIndex].preX = circles[focused.key].x = xPos
-                    lines[lineIndex].preY = circles[focused.key].y = yPos
-                }
-                if (cRef === ll2) {
-                    lines[lineIndex].x = circles[focused.key].y = xPos
-                    lines[lineIndex].y = circles[focused.key].y = yPos
-                }
+                // if (cRef === ll1) {
+                //     lines[lineIndex].preX = circles[focused.key].x = xPos
+                //     lines[lineIndex].preY = circles[focused.key].y = yPos
+                // }
+                // if (cRef === ll2) {
+                //     lines[lineIndex].x = circles[focused.key].y = xPos
+                //     lines[lineIndex].y = circles[focused.key].y = yPos
+                // }
                 draw()
                 return
             }
