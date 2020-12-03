@@ -79,12 +79,12 @@ const Drags = () => {
         // keep the start and finsh of the line
         let tempLineValues = []
 
-        // append a new point to the canvas
+        // append a new circles && lines to the canvas
         function addPoints(e) {         
             if (isPointSelected) {
                 const { layerX, layerY } = e
                 circles.push(new Circle(layerX, layerY))
-
+                //check if have both (start & finsh) points of the line
                 if (tempLineValues.length < 4) {
                     tempLineValues.push(layerX, layerY)
                 }
