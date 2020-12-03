@@ -36,7 +36,7 @@ const Drags = () => {
             constructor(x, y, cirRef) {
                 this.x = x
                 this.y = y
-                this.r = 8
+                this.r = 7
                 this.cirRef = cirRef
             }
             draw() {
