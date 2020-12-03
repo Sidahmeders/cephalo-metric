@@ -41,7 +41,7 @@
                         transition: .3s;
                         background-color: #fff;
                         width: 55px;
-                        border: 1px solid;
+                        border: 2px solid #444;
 
                         &:hover {
                             background-color: fff;
@@ -56,10 +56,9 @@
                         justify-content: center;
                         padding: 5px 0;
                         border-radius: 3px;
-                        transition: .3s;
                         background-color: #ddd;
                         width: 55px;
-                        border: 1px solid;
+                        border: 2px solid #444;
 
                         &:hover {
                             cursor: not-allowed;
