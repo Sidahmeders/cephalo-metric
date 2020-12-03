@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react'
+import React, { useEffect, useRef } from 'react'
 
 
 const Drags = () => {
@@ -92,7 +92,6 @@ const Drags = () => {
                     lines.push(new Line(...tempLineValues))
                     tempLineValues = []
                 }
-
                 drawCircles()
                 isPointSelected = false
             }
