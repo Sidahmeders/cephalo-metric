@@ -8,7 +8,7 @@ const Drags = () => {
     //track state of mousedown and up
     let isMouseDown
     // check is the user selected a point
-    let isPointSelected = false
+    let isPointSelected
 
     // the cephalo-metric calc-points
     const rules = [
@@ -17,6 +17,8 @@ const Drags = () => {
         'Gn', 'Pog', 'PNS', 'Go', 'Co', 'Pt', 'U1',
         'L1', 'PM', 'U1ap', 'L1ap', 'DC', 'OLp', 'OLa'
     ]
+
+    let selectedRules = []
 
     const getTheEntryLandMark = e => isPointSelected = e.target.innerText
 
@@ -84,8 +86,9 @@ const Drags = () => {
 
         //append a new circles && lines to the canvas
         function addPoints(e) {  
-            // check if the user selected a point from clac-head       
+            // check if the user selected a point from clac-head   
             if (isPointSelected) {
+
                 const { layerX, layerY } = e
                 circles.push(new Circle(layerX, layerY, circles.length))
                 //check if we have both (start & finsh) points of the line
