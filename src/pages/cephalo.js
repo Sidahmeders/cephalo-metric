@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import skull from '../images/skull.svgz'
 import '../styles/cephalo.scss'
 import Canvas from './canvas'
