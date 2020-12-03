@@ -22,11 +22,38 @@ const Drags = () => {
         { 'OLp': false }, { 'OLa': false }
     ]
 
-    const getThePointLandMark = e => { 
-        selectedPoint = e.target.innerText
-        rules.forEach(rule => {
-            if (Object.keys(rule)[0] == selectedPoint) rule[selectedPoint] = true
+    const getThePointLandMark = e => {
+        // set the selectedPoint to true if it's unSelected
+        selectedPoint = e.target.classList.contains('unSelected')
+        // replace the class-name to disable the button
+        e.target.classList.remove('unSelected')
+        e.target.classList.add('selected')
+    }
+
+    const calcHead = useRef(null)
+
+    // render the cephalo-metric-calculator
+    const renderClacHead = () => {
+        // create a new div element to replace it with the Refrence
+        const calculator = document.createElement('div')
+        // add class attribute for styling the css
+        calculator.setAttribute('class', 'buttons')
+        
+        rules.map(rule => {
+            // get the key-entry of the objects
+            let key = Object.keys(rule)[0]
+            //create a new span to be the button element
+            let span = document.createElement('span')
+            // set the text to be the key-entry
+            span.innerText = key
+            // add on-click handler
+            span.onclick = getThePointLandMark
+            // set the class attribute for our button element
+            span.setAttribute('class', 'unSelected')
+            // append the button to the div element
+            calculator.appendChild(span)
         })
+        calcHead.current.replaceWith(calculator)
     }
 
     //reference to the canvas element
@@ -239,22 +266,14 @@ const Drags = () => {
 
     useEffect(() => {
         renderCanvas()
+        renderClacHead()
     }, [])
 
     return (
         <div className="canvas">
             <canvas ref={ canvas }></canvas>
             <div className="calc-head">
-                <div className="buttons">
-                    {/* {renderClacHead()} */}
-                    {rules.map((rule, index) => {
-                        let key = Object.keys(rule)[0]
-                        let value = Object.values(rule)[0]
-                        return <span 
-                                    className={ !value ? "unSelected" : "selected" } 
-                                    key={ index } onClick={ getThePointLandMark }
-                                >{ value.toString() }</span>
-                    })}
+                <div ref={ calcHead }>
                 </div>
             </div>
         </div>
