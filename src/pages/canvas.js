@@ -127,6 +127,8 @@ const Drags = () => {
             if (focused.state) {
                 circles[focused.key].x = mousePosition.x
                 circles[focused.key].y = mousePosition.y
+                lines[focused.key].preX = mousePosition.x
+                lines[focused.key].preY = mousePosition.y
                 draw()
                 return
             }
