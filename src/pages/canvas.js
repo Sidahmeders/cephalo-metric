@@ -33,10 +33,11 @@ const Drags = () => {
         let c = ctx.getContext("2d")
         
         class Circle {
-            constructor(x, y) {
+            constructor(x, y, cirRef) {
                 this.x = x
                 this.y = y
                 this.r = 8
+                this.cirRef = cirRef
             }
             draw() {
                 c.beginPath()
@@ -47,11 +48,13 @@ const Drags = () => {
         }
 
         class Line {
-            constructor(preX, preY, x, y) {
-                this.preX = preX
-                this.preY = preY
-                this.x = x
-                this.y = y
+            constructor(start, end) {
+                this.preX = start[0]
+                this.preY = start[1]
+                this.x = end[0]
+                this.y = end[1]
+                this.startCirRef = start[2]
+                this.endCirRef = end[2]
             }
             draw() {
                 c.moveTo(this.preX, this.preY)
@@ -68,11 +71,13 @@ const Drags = () => {
         document.addEventListener('mouseup', setDraggable)
         document.addEventListener('mouseup', addPoints)
 
+        let linesState = []
+
         //make some circles
-        let c1 = new Circle(380, 40)
-        let c2 = new Circle(80, 40)
+        let c1 = new Circle(380, 40, 1)
+        let c2 = new Circle(80, 40, 2)
         //make lines
-        let l1 = new Line(380, 40, 80, 40)
+        let l1 = new Line([380, 40, 1], [80, 40, 2])
         //make a collection of circles & lines
         let circles = [c1, c2]
         let lines = [l1]
@@ -83,12 +88,13 @@ const Drags = () => {
         function addPoints(e) {         
             if (isPointSelected) {
                 const { layerX, layerY } = e
-                circles.push(new Circle(layerX, layerY))
+                circles.push(new Circle(layerX, layerY, circles.length+1))
                 //check if we have both (start & finsh) points of the line
-                if (tempLineValues.length < 4) {
-                    tempLineValues.push(layerX, layerY)
+                if (tempLineValues.length < 2) {
+                    tempLineValues.push([layerX, layerY, circles.length+1])
                 }
-                if (tempLineValues.length == 4) {
+                if (tempLineValues.length == 2) {
+                    console.log(tempLineValues)
                     lines.push(new Line(...tempLineValues))
                     tempLineValues = []
                 }
@@ -125,8 +131,23 @@ const Drags = () => {
             getMousePosition(e)
             //if any circle is focused
             if (focused.state) {
-                circles[focused.key].x = mousePosition.x
-                circles[focused.key].y = mousePosition.y
+                let xPos = circles[focused.key].y = mousePosition.x
+                let yPos = circles[focused.key].y = mousePosition.y
+                circles[focused.key].x = xPos
+                circles[focused.key].y = yPos
+                // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+                let cRef = circles[focused.key].cirRef
+                let ll1 = lines[focused.key].startCirRef
+                let ll2 = lines[focused.key].endCirRef
+                if (cRef === ll1) {
+                    lines[focused.key].preX = circles[focused.key].x = xPos
+                    lines[focused.key].preY = circles[focused.key].y = yPos
+                }
+                if (cRef === ll2) {
+                    lines[focused.key].x = circles[focused.key].y = mousePosition.x
+                    lines[focused.key].y = circles[focused.key].y = mousePosition.y
+                }
+                // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
                 draw()
                 return
             }
