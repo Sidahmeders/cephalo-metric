@@ -104,7 +104,7 @@ const Drags = () => {
         //main draw method
         function draw() {
             //clear canvas
-            c.clearRect(0, 0, canvas.current.width, canvas.current.height)
+            c.clearRect(0, 0, ctx.width, ctx.height)
             drawCircles()
         }
 
@@ -179,7 +179,7 @@ const Drags = () => {
         }
 
         function getMousePosition(e) {
-            let rect = canvas.current.getBoundingClientRect()
+            let rect = ctx.getBoundingClientRect()
             mousePosition = {
                 x: Math.round(e.x - rect.left),
                 y: Math.round(e.y - rect.top)
