@@ -72,10 +72,10 @@ const Drags = () => {
         document.addEventListener('mouseup', addPoints)
 
         //make some circles
-        let c1 = new Circle(380, 40, 1)
-        let c2 = new Circle(80, 40, 2)
+        let c1 = new Circle(380, 40, 0)
+        let c2 = new Circle(80, 40, 1)
         //make lines
-        let l1 = new Line([380, 40, 1], [80, 40, 2])
+        let l1 = new Line([380, 40, 0], [80, 40, 1])
         //make a collection of circles & lines
         let circles = [c1, c2]
         let lines = [l1]
@@ -86,10 +86,10 @@ const Drags = () => {
         function addPoints(e) {         
             if (isPointSelected) {
                 const { layerX, layerY } = e
-                circles.push(new Circle(layerX, layerY, circles.length+1))
+                circles.push(new Circle(layerX, layerY, circles.length))
                 //check if we have both (start & finsh) points of the line
                 if (tempLineValues.length < 2) {
-                    tempLineValues.push([layerX, layerY, circles.length+1])
+                    tempLineValues.push([layerX, layerY, circles.length-1])
                 }
                 if (tempLineValues.length == 2) {
                     console.log(tempLineValues)
@@ -137,16 +137,18 @@ const Drags = () => {
                 circles[focused.key].y = yPos
                 //get the Circle and Line Refrence
                 let cRef = circles[focused.key].cirRef
-                let ll1 = lines[focused.key].startCirRef
-                let ll2 = lines[focused.key].endCirRef
+                let lineIndex = Math.floor(cRef/2)
+                let ll1 = lines[lineIndex].startCirRef
+                let ll2 = lines[lineIndex].endCirRef
+                console.log(cRef, ll1, ll2, lineIndex)
                 //chek if the circle refrences the right line endpoint and update it's coordinates accordingly
                 if (cRef === ll1) {
-                    lines[focused.key].preX = circles[focused.key].x = xPos
-                    lines[focused.key].preY = circles[focused.key].y = yPos
+                    lines[lineIndex].preX = circles[focused.key].x = xPos
+                    lines[lineIndex].preY = circles[focused.key].y = yPos
                 }
                 if (cRef === ll2) {
-                    lines[focused.key].x = circles[focused.key].y = xPos
-                    lines[focused.key].y = circles[focused.key].y = yPos
+                    lines[lineIndex].x = circles[focused.key].y = xPos
+                    lines[lineIndex].y = circles[focused.key].y = yPos
                 }
                 draw()
                 return
