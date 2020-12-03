@@ -83,7 +83,8 @@ const Drags = () => {
         let tempLineValues = []
 
         //append a new circles && lines to the canvas
-        function addPoints(e) {         
+        function addPoints(e) {  
+            // check if the user selected a point from clac-head       
             if (isPointSelected) {
                 const { layerX, layerY } = e
                 circles.push(new Circle(layerX, layerY, circles.length))
@@ -92,7 +93,6 @@ const Drags = () => {
                     tempLineValues.push([layerX, layerY, circles.length-1])
                 }
                 if (tempLineValues.length == 2) {
-                    console.log(tempLineValues)
                     lines.push(new Line(...tempLineValues))
                     tempLineValues = []
                 }
@@ -140,7 +140,6 @@ const Drags = () => {
                 let lineIndex = Math.floor(cRef/2)
                 let ll1 = lines[lineIndex].startCirRef
                 let ll2 = lines[lineIndex].endCirRef
-                console.log(cRef, ll1, ll2, lineIndex)
                 //chek if the circle refrences the right line endpoint and update it's coordinates accordingly
                 if (cRef === ll1) {
                     lines[lineIndex].preX = circles[focused.key].x = xPos
