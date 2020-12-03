@@ -71,21 +71,28 @@ const Drags = () => {
         //make some circles
         let c1 = new Circle(380, 40)
         let c2 = new Circle(80, 40)
-        let c3 = new Circle(110, 220)
-        let c4 = new Circle(380, 220)
         //make lines
         let l1 = new Line(380, 40, 80, 40)
-        let l2 = new Line(110, 220, 380, 220)
-
         //make a collection of circles & lines
-        let circles = [c1, c2, c3, c4]
-        let lines = [l1, l2]
+        let circles = [c1, c2]
+        let lines = [l1]
+        // keep the start and finsh of the line
+        let tempLineValues = []
 
         // append a new point to the canvas
-        function addPoints(e) {
+        function addPoints(e) {         
             if (isPointSelected) {
                 const { layerX, layerY } = e
                 circles.push(new Circle(layerX, layerY))
+
+                if (tempLineValues.length < 4) {
+                    tempLineValues.push(layerX, layerY)
+                }
+                if (tempLineValues.length == 4) {
+                    lines.push(new Line(...tempLineValues))
+                    tempLineValues = []
+                }
+
                 drawCircles()
                 isPointSelected = false
             }
