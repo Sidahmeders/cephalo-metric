@@ -63,7 +63,7 @@ const Drags = () => {
         }
 
         //add listeners
-        document.addEventListener('mousemove', move)
+        document.addEventListener('mousemove', dragPoints)
         document.addEventListener('mousedown', setDraggable)
         document.addEventListener('mouseup', setDraggable)
         document.addEventListener('mouseup', addPoints)
@@ -120,16 +120,13 @@ const Drags = () => {
         state: false
         }
 
-        function move(e) {
+        function dragPoints(e) {
             if (!isMouseDown) return
             getMousePosition(e)
             //if any circle is focused
             if (focused.state) {
                 circles[focused.key].x = mousePosition.x
                 circles[focused.key].y = mousePosition.y
-                // ?????????????????????????????????????
-                lines[focused.key].preX = mousePosition.x
-                lines[focused.key].preY = mousePosition.y
                 draw()
                 return
             }
