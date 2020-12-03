@@ -71,8 +71,6 @@ const Drags = () => {
         document.addEventListener('mouseup', setDraggable)
         document.addEventListener('mouseup', addPoints)
 
-        let linesState = []
-
         //make some circles
         let c1 = new Circle(380, 40, 1)
         let c2 = new Circle(80, 40, 2)
@@ -84,7 +82,7 @@ const Drags = () => {
         // keep the start and finsh of the line
         let tempLineValues = []
 
-        // append a new circles && lines to the canvas
+        //append a new circles && lines to the canvas
         function addPoints(e) {         
             if (isPointSelected) {
                 const { layerX, layerY } = e
@@ -131,23 +129,25 @@ const Drags = () => {
             getMousePosition(e)
             //if any circle is focused
             if (focused.state) {
+                //get the x and y current postion of the mouse
                 let xPos = circles[focused.key].y = mousePosition.x
                 let yPos = circles[focused.key].y = mousePosition.y
+                //update the x and y coordinates of the circle
                 circles[focused.key].x = xPos
                 circles[focused.key].y = yPos
-                // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+                //get the Circle and Line Refrence
                 let cRef = circles[focused.key].cirRef
                 let ll1 = lines[focused.key].startCirRef
                 let ll2 = lines[focused.key].endCirRef
+                //chek if the circle refrences the right line endpoint and update it's coordinates accordingly
                 if (cRef === ll1) {
                     lines[focused.key].preX = circles[focused.key].x = xPos
                     lines[focused.key].preY = circles[focused.key].y = yPos
                 }
                 if (cRef === ll2) {
-                    lines[focused.key].x = circles[focused.key].y = mousePosition.x
-                    lines[focused.key].y = circles[focused.key].y = mousePosition.y
+                    lines[focused.key].x = circles[focused.key].y = xPos
+                    lines[focused.key].y = circles[focused.key].y = yPos
                 }
-                // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
                 draw()
                 return
             }
