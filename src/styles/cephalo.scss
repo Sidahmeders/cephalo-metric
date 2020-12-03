@@ -31,25 +31,42 @@
                 ::selection { background: transparent; }
                 ::-moz-selection { background: transparent; }
 
-                span {
-                    background-color: #ddd;
-                    width: 55px;
-                    border: 1px solid;
-                    margin: 5px;
-                    color: black;
-                    display: flex;
-                    justify-content: center;
-                    padding: 5px 0;
-                    border-radius: 3px;
-                    transition: .3s;
+                    .unSelected {
+                        margin: 5px;
+                        color: black;
+                        display: flex;
+                        justify-content: center;
+                        padding: 5px 0;
+                        border-radius: 3px;
+                        transition: .3s;
+                        background-color: #fff;
+                        width: 55px;
+                        border: 1px solid;
 
-                    &:hover {
-                        background-color: fff;
-                        cursor: copy;
-                        border-color: orange;
+                        &:hover {
+                            background-color: fff;
+                            cursor: copy;
+                            border-color: orange;
+                        }
+                    }
+                    .selected {
+                        margin: 5px;
+                        color: #999;
+                        display: flex;
+                        justify-content: center;
+                        padding: 5px 0;
+                        border-radius: 3px;
+                        transition: .3s;
+                        background-color: #ddd;
+                        width: 55px;
+                        border: 1px solid;
+
+                        &:hover {
+                            cursor: not-allowed;
+                        }
                     }
                 }
-            }
+            
         }
     }
 }

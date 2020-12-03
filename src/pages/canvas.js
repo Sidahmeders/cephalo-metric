@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 
 
 const Drags = () => {
@@ -8,19 +8,54 @@ const Drags = () => {
     //track state of mousedown and up
     let isMouseDown
     // check is the user selected a point
-    let isPointSelected
+    let selectedPoint
+
+    const calcHead = useRef(null)
 
     // the cephalo-metric calc-points
-    const rules = [
-        'S', 'Po', 'PGs', 'R1', 'N', 'Ba', 'Li', 'R2',
-        'A', 'Or', 'PN', 'R3', 'B', 'Me', 'ANS', 'R4',
-        'Gn', 'Pog', 'PNS', 'Go', 'Co', 'Pt', 'U1',
-        'L1', 'PM', 'U1ap', 'L1ap', 'DC', 'OLp', 'OLa'
-    ]
+    const [rules, setRules] = useState([
+        { 'S': false }, { 'Po': false }, { 'PGs': false }, { 'R1': false },
+        { 'N': false }, { 'Ba': false }, { 'Li': false }, { 'R2': false },
+        { 'A': false }, { 'Or': false }, { 'PN': false }, { 'R3': false },
+        { 'B': false }, { 'Me': false }, { 'ANS': false }, { 'R4': false },
+        { 'Gn': false }, { 'Pog': false }, { 'PNS': false }, { 'Go': false },
+        { 'Co': false }, { 'Pt': false }, { 'U1': false }, { 'L1': false },
+        { 'PM': false }, { 'U1ap': false }, { 'L1ap': false }, { 'DC': false },
+        { 'OLp': false }, { 'OLa': false }
+    ])
 
-    let selectedRules = []
+    const getThePointLandMark = e => { 
+        selectedPoint = e.target.innerText
+        let newRules = []
+        rules.map(rule => {
+            if (Object.keys(rule)[0] == selectedPoint) rule[selectedPoint] = true
+            newRules.push(rule)
+        })
+        setRules(() => newRules)
+        // console.log(rules)
+    }
 
-    const getTheEntryLandMark = e => isPointSelected = e.target.innerText
+    const renderClacHead = () => {
+        const calculator = document.createElement('div')
+        calculator.setAttribute('className', 'buttons')
+        
+        rules.map((rule, index)=> {
+            let key = Object.keys(rule)[0]
+            let value = Object.values(rule)[0]
+
+            let span = document.createElement('span')
+            span.innerText = key
+
+            if (value) span.setAttribute('class', 'selected')
+            else span.setAttribute('class', 'unSelected')
+
+            calculator.appendChild(span)
+
+            // value ? calculator.append(<span className="selected" key={ index }>{key}</span>) :
+            // calculator.append(<span className="unSelected" key={ index } onClick={ getThePointLandMark }>{key}</span>)
+        })
+        calcHead.current.replaceWith(calculator)
+    }
 
     //reference to the canvas element
     const canvas = useRef(null)
@@ -87,8 +122,8 @@ const Drags = () => {
         //append a new circles && lines to the canvas
         function addPoints(e) {  
             // check if the user selected a point from clac-head   
-            if (isPointSelected) {
-
+            if (selectedPoint) {
+                console.log(selectedPoint)
                 const { layerX, layerY } = e
                 circles.push(new Circle(layerX, layerY, circles.length))
                 //check if we have both (start & finsh) points of the line
@@ -100,7 +135,7 @@ const Drags = () => {
                     tempLineValues = []
                 }
                 drawCircles()
-                isPointSelected = false
+                selectedPoint = false
             }
         }
 
@@ -235,12 +270,15 @@ const Drags = () => {
         renderCanvas()
     }, [])
 
+    useEffect(() => {
+        renderClacHead()
+    }, [rules])
+
     return (
         <div className="canvas">
-            <canvas ref={canvas}></canvas>
+            <canvas ref={ canvas }></canvas>
             <div className="calc-head">
-                <div className="buttons">
-                    {rules.map(rule => <span onClick={getTheEntryLandMark} key={rule}>{rule}</span>)}
+                <div ref={ calcHead }>
                 </div>
             </div>
         </div>
