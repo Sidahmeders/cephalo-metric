@@ -123,7 +123,7 @@ const Drags = () => {
         let circles = [] //[c1, c2]
         // let lines = [l1]
         // keep the start and finsh of the line
-        let tempLineValues = []
+        // let tempLineValues = []
 
         //append a new circles && lines to the canvas
         function addPoints(e) {  
