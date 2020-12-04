@@ -3,12 +3,14 @@ import React, { useEffect, useRef } from 'react'
 
 const Drags = () => {
 
-    //track mouse position on mousemove
+    // track mouse position on mousemove
     let mousePosition
-    //track state of mousedown and up
+    // track state of mousedown and up
     let isMouseDown
+    // set the the entry-point for our Object
+    let entryPoint
     // check is the user selected a point
-    let selectedPoint
+    let isPointSelected
 
     // the cephalo-metric calc-points
     const rules = [
@@ -23,8 +25,10 @@ const Drags = () => {
     ]
 
     const getThePointLandMark = e => {
-        // set the selectedPoint to true if it's unSelected
-        selectedPoint = e.target.classList.contains('unSelected')
+        // set the isPointSelected to true if it's unSelected
+        isPointSelected = e.target.classList.contains('unSelected')
+        // check if there is a valid-point update the entry
+        if (isPointSelected) entryPoint = e.target.innerText
         // replace the class-name to disable the button
         e.target.classList.remove('unSelected')
         e.target.classList.add('selected')
@@ -128,7 +132,7 @@ const Drags = () => {
         //append a new circles && lines to the canvas
         function addPoints(e) {  
             // check if the user selected a point from clac-head   
-            if (selectedPoint) {
+            if (isPointSelected) {
                 const { layerX, layerY } = e
                 circles.push(new Circle(layerX, layerY, circles.length))
                 //check if we have both (start & finsh) points of the line
@@ -139,8 +143,14 @@ const Drags = () => {
                 //     lines.push(new Line(...tempLineValues))
                 //     tempLineValues = []
                 // }
+                rules.forEach(rule => {
+                    let key = Object.keys(rule)[0]
+                    if (key === entryPoint) rule[entryPoint] = { layerX, layerY }
+                })
                 drawCircles()
-                selectedPoint = false
+                isPointSelected = false
+                entryPoint = false
+                console.log(rules)
             }
         }
 
