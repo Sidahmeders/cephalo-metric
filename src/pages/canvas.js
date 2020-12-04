@@ -32,6 +32,7 @@ const Drags = () => {
         // replace the class-name to disable the button
         e.target.classList.remove('unSelected')
         e.target.classList.add('selected')
+        calculateTheDistanceAndAngle()
     }
 
     const calcHead = useRef(null)
@@ -134,7 +135,6 @@ const Drags = () => {
             // check if the user selected a point from clac-head   
             if (isPointSelected) {
                 const { layerX, layerY } = e
-                circles.push(new Circle(layerX, layerY, circles.length))
                 //check if we have both (start & finsh) points of the line
                 // if (tempLineValues.length < 2) {
                 //     tempLineValues.push([layerX, layerY, circles.length-1])
@@ -145,12 +145,14 @@ const Drags = () => {
                 // }
                 rules.forEach(rule => {
                     let key = Object.keys(rule)[0]
-                    if (key === entryPoint) rule[entryPoint] = { layerX, layerY }
+                    if (key === entryPoint) {
+                        circles.push(new Circle(layerX, layerY, entryPoint))
+                        rule[entryPoint] = [layerX, layerY]
+                    }
                 })
                 drawCircles()
                 isPointSelected = false
                 entryPoint = false
-                console.log(rules)
             }
         }
 
@@ -188,6 +190,15 @@ const Drags = () => {
                 //update the x and y coordinates of the circle
                 circles[focused.key].x = xPos
                 circles[focused.key].y = yPos
+                // get the reference-entryPoint from the circle
+                const ruleRef = circles[focused.key].cirRef
+                // update the rules (x,y) coorinates based on the reference-key
+                rules.forEach(rule => {
+                    let key = Object.keys(rule)[0]
+                    if (key === ruleRef) {
+                        rule[ruleRef] = [mousePosition.x, mousePosition.y]
+                    }
+                })
                 //get the Circle and Line Refrence
                 // let cRef = circles[focused.key].cirRef
                 // let lineIndex = Math.floor(cRef/2)
@@ -279,6 +290,21 @@ const Drags = () => {
         const theta = cos_theta * (180 / Math.PI)
 
         return theta
+    }
+
+    const calculateTheDistanceAndAngle = () => {
+        let coordinates = [
+            { aa: { "S": rules[0].S, "Po": rules[1].Po, "PGs": rules[2].PGs } },
+            { bb: undefined }
+        ]
+
+        // let coor = convertScreenCoordinatesToCartesianPlanePoints(
+        //     ...coordinates[0].aa.Po,
+        //     ...coordinates[0].aa.PGs,
+        //     ...coordinates[0].aa.S
+        // )
+        // console.log(coor)
+        // console.log(rules)
     }
 
     useEffect(() => {
