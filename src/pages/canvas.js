@@ -297,6 +297,10 @@ const Drags = () => {
         return theta
     }
 
+    const findTheDistanceBetweenTwoPoints = () => {
+        return undefined
+    }
+
     const calculateTheDistanceAndAngle = () => {
         let coordinates = [
             { aa: { "S": rules[0].S, "Po": rules[1].Po, "PGs": rules[2].PGs } },
@@ -304,16 +308,14 @@ const Drags = () => {
         ]
 
         let coor = convertScreenCoordinatesToCartesianPlanePoints(
-            coordinates[0].aa.Po[0], coordinates[0].aa.Po[1],
-            coordinates[0].aa.S[0], coordinates[0].aa.S[1],
-            coordinates[0].aa.PGs[0], coordinates[0].aa.PGs[1]
+            coordinates[0].aa.Po[0], coordinates[0].aa.Po[1],  // Origin (x,y)_axes
+            coordinates[0].aa.S[0], coordinates[0].aa.S[1],    // Vector-A (x,y)_axes
+            coordinates[0].aa.PGs[0], coordinates[0].aa.PGs[1] // Vector-B (x,y)_axes
         )
 
         let angle = findTheAngleBetweenTwoVectors(...coor)
 
-        // console.log(coor)
         console.log(angle.toFixed(2))
-        // console.log(coordinates[0].aa.S[0], coordinates[0].aa.S[1])
     }
 
     useEffect(() => {
