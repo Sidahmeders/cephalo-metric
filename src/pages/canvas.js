@@ -304,7 +304,7 @@ const Drags = () => {
         //     ...coordinates[0].aa.S
         // )
         // console.log(coor)
-        // console.log(rules)
+        console.log(coordinates)
     }
 
     useEffect(() => {
