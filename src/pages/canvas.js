@@ -299,12 +299,16 @@ const Drags = () => {
         ]
 
         let coor = convertScreenCoordinatesToCartesianPlanePoints(
+            coordinates[0].aa.Po[0], coordinates[0].aa.Po[1],
             coordinates[0].aa.S[0], coordinates[0].aa.S[1],
-            coordinates[0].aa.PGs[0], coordinates[0].aa.PGs[1],
-            coordinates[0].aa.S[0], coordinates[0].aa.S[1]
+            coordinates[0].aa.PGs[0], coordinates[0].aa.PGs[1]
         )
+
+        let angle = findTheAngleBetweenTwoVectors(...coor)
+
         // console.log(coor)
-        console.log(coordinates[0].aa.S[0], coordinates[0].aa.S[1])
+        console.log(angle)
+        // console.log(coordinates[0].aa.S[0], coordinates[0].aa.S[1])
     }
 
     useEffect(() => {
