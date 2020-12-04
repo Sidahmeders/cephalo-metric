@@ -8,7 +8,7 @@ const Cephalo = () => {
     return (
         <div className="cephalo">
             <Canvas/>
-            <h2 style={{marginTop: "15vh", color: "#592"}}>@DENTECH</h2>
+            <h2 style={{marginTop: "15vh", color: "#894"}}>@DENTECH</h2>
             <div>
                 <img src={skull} alt="skull"/>
             </div>

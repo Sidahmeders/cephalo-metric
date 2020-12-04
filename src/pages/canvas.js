@@ -89,6 +89,10 @@ const Drags = () => {
                 c.arc(this.x, this.y, this.r, 0, 2*Math.PI)
                 c.fillStyle = 'red'
                 c.fill()
+                c.fillStyle = "blue"
+                c.font = "bold 16px serif"
+                c.textBaseline = "top"
+                c.fillText(this.cirRef, this.x, this.y)
             }
         }
 
@@ -214,6 +218,7 @@ const Drags = () => {
                 //     lines[lineIndex].y = circles[focused.key].y = yPos
                 // }
                 draw()
+                calculateTheDistanceAndAngle()
                 return
             }
             //no circle currently focused check if circle is hovered
@@ -307,7 +312,7 @@ const Drags = () => {
         let angle = findTheAngleBetweenTwoVectors(...coor)
 
         // console.log(coor)
-        console.log(angle)
+        console.log(angle.toFixed(2))
         // console.log(coordinates[0].aa.S[0], coordinates[0].aa.S[1])
     }
 
