@@ -69,7 +69,7 @@ const Drags = () => {
     const renderCanvas = () => {
         const ctx = canvas.current
         // set the width and height of the canvas
-        ctx.width = innerWidth / 1.12
+        ctx.width = innerWidth
         ctx.height = innerHeight / 1.12
         //reference to 2d context
         let c = ctx.getContext("2d")
