@@ -1,10 +1,18 @@
 
 .cephalo {
+    ::selection { background: transparent; }
+    ::-moz-selection { background: transparent; }
 
-    img {
-        position: absolute; 
-        left: 10vw;
-        opacity: .5;
+
+    .radio-graph {
+        margin-top: 12vh;
+
+        img {
+            position: absolute;
+            left: 7vw;
+            width: 60vw;
+            padding: 20px;
+        }
     }
 
     .canvas {
@@ -29,8 +37,6 @@
                 display: flex;
                 flex-wrap: wrap;
                 justify-content: center;
-                ::selection { background: transparent; }
-                ::-moz-selection { background: transparent; }
 
                     .unSelected {
                         margin: 5px;

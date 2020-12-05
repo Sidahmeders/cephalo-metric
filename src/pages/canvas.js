@@ -69,7 +69,7 @@ const Drags = () => {
     const renderCanvas = () => {
         const ctx = canvas.current
         // set the width and height of the canvas
-        ctx.width = innerWidth
+        ctx.width = innerWidth / 1.12
         ctx.height = innerHeight / 1.12
         //reference to 2d context
         let c = ctx.getContext("2d")
@@ -89,7 +89,7 @@ const Drags = () => {
                 c.arc(this.x, this.y, this.r, 0, 2*Math.PI)
                 c.fillStyle = 'red'
                 c.fill()
-                c.fillStyle = "blue"
+                c.fillStyle = "white"
                 c.font = "bold 16px serif"
                 c.textBaseline = "top"
                 c.fillText(this.cirRef, this.x, this.y)

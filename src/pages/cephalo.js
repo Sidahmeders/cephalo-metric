@@ -1,5 +1,5 @@
 import React from 'react'
-import skull from '../images/skull.svgz'
+import skull from '../images/radioGraph.bmp'
 import '../styles/cephalo.scss'
 import Canvas from './canvas'
 
@@ -8,8 +8,7 @@ const Cephalo = () => {
     return (
         <div className="cephalo">
             <Canvas/>
-            <h2 style={{marginTop: "15vh", color: "#894"}}>@DENTECH</h2>
-            <div>
+            <div className="radio-graph">
                 <img src={skull} alt="skull"/>
             </div>
         </div>
