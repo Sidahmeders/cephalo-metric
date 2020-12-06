@@ -14,14 +14,11 @@ const Drags = () => {
 
     // the cephalo-metric calc-points
     const rules = [
-        { 'S': false }, { 'Po': false }, { 'PGs': false }, { 'R1': false },
-        { 'N': false }, { 'Ba': false }, { 'Li': false }, { 'R2': false },
-        { 'A': false }, { 'Or': false }, { 'PN': false }, { 'R3': false },
-        { 'B': false }, { 'Me': false }, { 'ANS': false }, { 'R4': false },
-        { 'Gn': false }, { 'Pog': false }, { 'PNS': false }, { 'Go': false },
-        { 'Co': false }, { 'Pt': false }, { 'U1': false }, { 'L1': false },
-        { 'PM': false }, { 'U1ap': false }, { 'L1ap': false }, { 'DC': false },
-        { 'OLp': false }, { 'OLa': false }
+        { 'S': false }, { 'A': false }, { 'B': false }, { 'Na': false },
+        { 'Pog': false }, { 'Me': false }, { 'Gn': false }, { 'ENA': false },
+        { 'ENP': false }, { 'Xi': false }, { 'Go': false }, { 'Ba': false },
+        { 'Po': false }, { 'Or': false }, { 'Ptm': false }, { 'Ar': false },
+        { 'D': false }, { 'Pm': false }
     ]
 
     const getThePointLandMark = e => {
@@ -80,7 +77,7 @@ const Drags = () => {
             constructor(x, y, cirRef) {
                 this.x = x
                 this.y = y
-                this.r = 7
+                this.r = 4
                 this.cirRef = cirRef
             }
             // circle drawing method
