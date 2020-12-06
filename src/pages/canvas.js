@@ -18,7 +18,10 @@ const Drags = () => {
         { 'Pog': false }, { 'Me': false }, { 'Gn': false }, { 'ENA': false },
         { 'ENP': false }, { 'Xi': false }, { 'Go': false }, { 'Ba': false },
         { 'Po': false }, { 'Or': false }, { 'Ptm': false }, { 'Ar': false },
-        { 'D': false }, { 'Pm': false }
+        { 'D': false }, { 'Pm': false }, { 'Co': false }, { 'U1': false },
+        { 'L1': false }, { 'U1ap': false }, { 'L1ap': false }, { 'OLp': false },
+        { 'OLa': false }, { 'PN': false }, { 'DC': false }, { 'R1': false },
+        { 'R2': false }, { 'R3': false }, { 'R4': false },
     ]
 
     const getThePointLandMark = e => {
@@ -66,8 +69,8 @@ const Drags = () => {
     const renderCanvas = () => {
         const ctx = canvas.current
         // set the width and height of the canvas
-        ctx.width = innerWidth
-        ctx.height = innerHeight / 1.12
+        ctx.width = innerWidth * .98
+        ctx.height = innerHeight * 1.22
         //reference to 2d context
         let c = ctx.getContext("2d")
         
@@ -300,21 +303,21 @@ const Drags = () => {
 
     const calculateTheDistanceAndAngle = () => {
         let coordinates = [
-            { aa: { "S": rules[0].S, "Po": rules[1].Po, "PGs": rules[2].PGs } },
+            { aa: { "S": rules[0].S, "A": rules[1].A, "B": rules[2].B } },
             { bb: undefined }
         ]
 
         let screenToCartesianCoordinates = convertScreenCoordinatesToCartesianPlanePoints(
-            coordinates[0].aa.Po[0], coordinates[0].aa.Po[1],  // Origin (x,y)_axes
-            coordinates[0].aa.S[0], coordinates[0].aa.S[1],    // Vector-A (x,y)_axes
-            coordinates[0].aa.PGs[0], coordinates[0].aa.PGs[1] // Vector-B (x,y)_axes
+            coordinates[0].aa.A[0], coordinates[0].aa.A[1], // Origin (x,y)_axes
+            coordinates[0].aa.S[0], coordinates[0].aa.S[1], // Vector-A (x,y)_axes
+            coordinates[0].aa.B[0], coordinates[0].aa.B[1]  // Vector-B (x,y)_axes
         )
 
         let angle = findTheAngleBetweenTwoVectors(...screenToCartesianCoordinates)
 
         let distance = findTheDistanceBetweenTwoPoints(
-            coordinates[0].aa.S[0], coordinates[0].aa.S[1],    // Vector-A (x,y)_axes
-            coordinates[0].aa.PGs[0], coordinates[0].aa.PGs[1] // Vector-B (x,y)_axes
+            coordinates[0].aa.S[0], coordinates[0].aa.S[1], // Vector-A (x,y)_axes
+            coordinates[0].aa.B[0], coordinates[0].aa.B[1]  // Vector-B (x,y)_axes
         )
 
         console.log("angle", angle.toFixed(2))
