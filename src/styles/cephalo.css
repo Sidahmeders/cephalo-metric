@@ -1,0 +1,99 @@
+.cephalo ::-moz-selection {
+  background: transparent;
+}
+
+.cephalo ::selection {
+  background: transparent;
+}
+
+.cephalo ::-moz-selection {
+  background: transparent;
+}
+
+.cephalo .radio-graph {
+  margin-top: 12vh;
+}
+
+.cephalo .radio-graph img {
+  position: absolute;
+  left: 7vw;
+  width: 60vw;
+  padding: 20px;
+}
+
+.cephalo .canvas {
+  margin-top: 10vh;
+  position: absolute;
+  left: 0;
+  z-index: 1;
+  background-color: #0002;
+}
+
+.cephalo .canvas .calc-head {
+  background-color: #456;
+  z-index: 99;
+  position: fixed;
+  top: 15%;
+  right: 1%;
+  width: 30vw;
+  height: auto;
+  border: 2px solid red;
+  border-radius: 5px;
+  padding: 10px 0;
+}
+
+.cephalo .canvas .calc-head .buttons {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.cephalo .canvas .calc-head .buttons .unSelected {
+  margin: 5px;
+  color: black;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  padding: 5px 0;
+  border-radius: 3px;
+  -webkit-transition: .3s;
+  transition: .3s;
+  background-color: #fff;
+  width: 55px;
+  border: 2px solid #444;
+}
+
+.cephalo .canvas .calc-head .buttons .unSelected:hover {
+  background-color: fff;
+  cursor: copy;
+  border-color: orange;
+}
+
+.cephalo .canvas .calc-head .buttons .selected {
+  margin: 5px;
+  color: #999;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  padding: 5px 0;
+  border-radius: 3px;
+  background-color: #ddd;
+  width: 55px;
+  border: 2px solid #444;
+}
+
+.cephalo .canvas .calc-head .buttons .selected:hover {
+  cursor: not-allowed;
+}
+/*# sourceMappingURL=cephalo.css.map */

@@ -302,26 +302,26 @@ const Drags = () => {
     }
 
     const calculateTheDistanceAndAngle = () => {
-        let coordinates = [
-            { aa: { "S": rules[0].S, "A": rules[1].A, "B": rules[2].B } },
-            { bb: undefined }
-        ]
+        let coordinates = {
+            aa: { "Xi": rules[9].Xi, "ENA": rules[7].ENA, "Pm": rules[17].Pm },
+            bb: {undefined }
+        }
 
         let screenToCartesianCoordinates = convertScreenCoordinatesToCartesianPlanePoints(
-            coordinates[0].aa.A[0], coordinates[0].aa.A[1], // Origin (x,y)_axes
-            coordinates[0].aa.S[0], coordinates[0].aa.S[1], // Vector-A (x,y)_axes
-            coordinates[0].aa.B[0], coordinates[0].aa.B[1]  // Vector-B (x,y)_axes
+            coordinates.aa.Xi[0], coordinates.aa.Xi[1], // Origin (x,y)_axes
+            coordinates.aa.ENA[0], coordinates.aa.ENA[1], // Vector-A (x,y)_axes
+            coordinates.aa.Pm[0], coordinates.aa.Pm[1]  // Vector-B (x,y)_axes
         )
 
         let angle = findTheAngleBetweenTwoVectors(...screenToCartesianCoordinates)
 
-        let distance = findTheDistanceBetweenTwoPoints(
-            coordinates[0].aa.S[0], coordinates[0].aa.S[1], // Vector-A (x,y)_axes
-            coordinates[0].aa.B[0], coordinates[0].aa.B[1]  // Vector-B (x,y)_axes
-        )
+        // let distance = findTheDistanceBetweenTwoPoints(
+        //     coordinates[0].aa.S[0], coordinates[0].aa.S[1], // Vector-A (x,y)_axes
+        //     coordinates[0].aa.B[0], coordinates[0].aa.B[1]  // Vector-B (x,y)_axes
+        // )
 
         console.log("angle", angle.toFixed(2))
-        console.log("distance", distance.toFixed(2))
+        // console.log("distance", distance.toFixed(2))
     }
 
     useEffect(() => {

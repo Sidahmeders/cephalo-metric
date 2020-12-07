@@ -1,0 +1,36 @@
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+}
+
+.navbar ul {
+  background-color: #334;
+  list-style: none;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: space-evenly;
+      -ms-flex-pack: space-evenly;
+          justify-content: space-evenly;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding: 20px;
+  font-size: 22px;
+}
+
+.navbar ul li a {
+  color: #ddf;
+  font-family: Oxygen, Ubuntu, Cantarell, sans-serif;
+  -webkit-transition: .5s;
+  transition: .5s;
+  text-decoration: none;
+}
+
+.navbar ul li a:hover {
+  cursor: pointer;
+  color: #fff;
+}
+/*# sourceMappingURL=navbar.css.map */
