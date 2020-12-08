@@ -303,17 +303,35 @@ const Drags = () => {
 
     const calculateTheDistanceAndAngle = () => {
         let coordinates = {
-            aa: { "Xi": rules[9].Xi, "ENA": rules[7].ENA, "Pm": rules[17].Pm },
-            bb: {undefined }
+            SNA: {S,N,A}, // angle SNA
+            SNB: {S,N,B}, //angle between SNB
+            ANB: {A,N,B}, // angle between ANB
+            // angle between PFr && MA = FMA
+            PFr: {Po, Or}, // line
+            MA: {Go, Me}, // line
+            // angle between PFr && SGn = axe y de_Brodie
+            SGn: {S, Gn}, // line
+            // angle between BaNa && PtGn = axe facial de Rickette
+            BaNa: {Ba, Na}, // line 
+            PtGn: {pt, Gn}, // line
+            // angle between PFr && U1U1ap = I/F
+            U1U1ap: {U1, U1ap}, // line
+            // angle between MA && L1L1ap = I/M
+            L1L1ap: {L1, L1ap}, // line
+            // distnce bewteen A && NaPog = convenxite
+            NaPog: {Na, Pog}, // line
+            // distance between (Pt vertical onto PFr) and (ENA vertical onto PFr)
+            // distance between (Pt vertical onto ENAENP) and A
+            ENAENP: {ENA, ENP}, // line
         }
 
-        let screenToCartesianCoordinates = convertScreenCoordinatesToCartesianPlanePoints(
-            coordinates.aa.Xi[0], coordinates.aa.Xi[1], // Origin (x,y)_axes
-            coordinates.aa.ENA[0], coordinates.aa.ENA[1], // Vector-A (x,y)_axes
-            coordinates.aa.Pm[0], coordinates.aa.Pm[1]  // Vector-B (x,y)_axes
-        )
+        // let screenToCartesianCoordinates = convertScreenCoordinatesToCartesianPlanePoints(
+        //     coordinates.aa.Xi[0], coordinates.aa.Xi[1], // Origin (x,y)_axes
+        //     coordinates.aa.ENA[0], coordinates.aa.ENA[1], // Vector-A (x,y)_axes
+        //     coordinates.aa.Pm[0], coordinates.aa.Pm[1]  // Vector-B (x,y)_axes
+        // )
 
-        let angle = findTheAngleBetweenTwoVectors(...screenToCartesianCoordinates)
+        // let angle = findTheAngleBetweenTwoVectors(...screenToCartesianCoordinates)
 
         // let distance = findTheDistanceBetweenTwoPoints(
         //     coordinates[0].aa.S[0], coordinates[0].aa.S[1], // Vector-A (x,y)_axes
