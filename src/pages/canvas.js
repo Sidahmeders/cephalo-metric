@@ -393,6 +393,13 @@ const Drags = () => {
             coordinates.MA.Go[0], coordinates.MA.Go[1],
         )
 
+        const axeYDeBrodieIntersection = intersectionOfPFrOntoMA(
+            coordinates.SGn.S[0], coordinates.SGn.S[1],
+            coordinates.SGn.Gn[0], coordinates.SGn.Gn[1],
+            coordinates.PFr.Po[0], coordinates.PFr.Po[1],
+            coordinates.PFr.Or[0], coordinates.PFr.Or[1]
+        )
+
         let screenToCartesianCoordinates = {
             // XiENAPm : convertScreenCoordinatesToCartesianPlanePoints( FIXME:
             //     coordinates.XiENAPm.Xi[0], coordinates.XiENAPm.Xi[1], // Origin (x,y)_axes
