@@ -303,25 +303,48 @@ const Drags = () => {
     const calculateTheDistanceAndAngle = () => {
         let coordinates = {
             XiENAPm: {
-                Xi: rules[9].Xi,
-                ENA: rules[7].ENA,
-                Pm: rules[17].Pm
+                Xi: rules[10].Xi,
+                ENA: rules[8].ENA,
+                Pm: rules[18].Pm
             },
-            SNA: {
+            SNA: { // angle between S-N-A
                 S: rules[0].S,
-                N,
+                N: rules[3].N,
                 A: rules[1].A
-            }, // angle SNA
-            // SNB: {S,N,B}, //angle between SNB
-            // ANB: {A,N,B}, // angle between ANB
-            // // angle between PFr && MA = FMA
-            // PFr: {Po, Or}, // line
-            // MA: {Go, Me}, // line
-            // // angle between PFr && SGn = axe y de_Brodie
-            // SGn: {S, Gn}, // line
-            // // angle between BaNa && PtGn = axe facial de Rickette
-            // BaNa: {Ba, Na}, // line 
-            // PtGn: {pt, Gn}, // line
+            }, 
+            SNB: { // angle between S-N-B
+                S: rules[0].S,
+                N: rules[3].N,
+                B: rules[2].B
+            },
+            ANB: { // angle between A-N-B
+                A: rules[1].A,
+                N: rules[3].N,
+                B: rules[2].B
+            },
+            // angle between PFr && MA = FMA TODO:
+            PFr: { // line
+                Po: rules[13].Po,
+                Or: rules[14].Or
+            },
+            MA: { // line
+                Go: rules[11].Go,
+                Me: rules[6].Me
+            },
+            // // angle between PFr && SGn = axe y de_Brodie TODO:
+            SGn: { // line
+                S: rules[0].S,
+                Gn: rules[7].Gn
+            },
+            // // angle between BaNa && PtGn = axe facial de Rickette TODO:
+            BaNa: { // line
+                Ba: rules[12].Ba,
+                Na: rules[4].Na
+            }, 
+            PtGn: { // line
+                // Pt: rules[].Pt, 
+                Gn: rules[7].Gn
+            },
             // // angle between PFr && U1U1ap = I/F
             // U1U1ap: {U1, U1ap}, // line
             // // angle between MA && L1L1ap = I/M
@@ -338,7 +361,7 @@ const Drags = () => {
                 coordinates.XiENAPm.Xi[0], coordinates.XiENAPm.Xi[1], // Origin (x,y)_axes
                 coordinates.XiENAPm.ENA[0], coordinates.XiENAPm.ENA[1], // Vector-A (x,y)_axes
                 coordinates.XiENAPm.Pm[0], coordinates.XiENAPm.Pm[1]  // Vector-B (x,y)_axes
-            ),
+            )
         }
 
         let angles = {
@@ -350,7 +373,8 @@ const Drags = () => {
         //     coordinates[0].XiENAPm.B[0], coordinates[0].XiENAPm.B[1]  // Vector-B (x,y)_axes
         // )
 
-        console.log("angle", angles)
+        console.log("coordinates", coordinates)
+        // console.log("angle", angles)
         // console.log("distance", distance.toFixed(2))
     }
 
