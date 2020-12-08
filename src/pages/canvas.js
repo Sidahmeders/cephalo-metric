@@ -14,14 +14,14 @@ const Drags = () => {
 
     // the cephalo-metric calc-points
     const rules = [
-        { 'S': false }, { 'A': false }, { 'B': false }, { 'Na': false },
-        { 'Pog': false }, { 'Me': false }, { 'Gn': false }, { 'ENA': false },
-        { 'ENP': false }, { 'Xi': false }, { 'Go': false }, { 'Ba': false },
-        { 'Po': false }, { 'Or': false }, { 'Ptm': false }, { 'Ar': false },
-        { 'D': false }, { 'Pm': false }, { 'Co': false }, { 'U1': false },
-        { 'L1': false }, { 'U1ap': false }, { 'L1ap': false }, { 'OLp': false },
-        { 'OLa': false }, { 'PN': false }, { 'DC': false }, { 'R1': false },
-        { 'R2': false }, { 'R3': false }, { 'R4': false },
+        { 'S': false }, { 'A': false }, { 'B': false }, { 'N': false },
+        { 'Na': false }, { 'Pog': false }, { 'Me': false }, { 'Gn': false },
+        { 'ENA': false }, { 'ENP': false }, { 'Xi': false }, { 'Go': false },
+        { 'Ba': false }, { 'Po': false }, { 'Or': false }, { 'Ptm': false },
+        { 'Ar': false }, { 'D': false }, { 'Pm': false }, { 'Co': false }, 
+        { 'U1': false }, { 'L1': false }, { 'U1ap': false }, { 'L1ap': false },
+        { 'OLp': false }, { 'OLa': false }, { 'PN': false }, { 'DC': false }, 
+        { 'R1': false }, { 'R2': false }, { 'R3': false }, { 'R4': false }
     ]
 
     const getThePointLandMark = e => {
@@ -275,7 +275,6 @@ const Drags = () => {
             }
             this.splice(new_index, 0, this.splice(old_index, 1)[0])
         }
-        
         draw()
     }
 
@@ -303,42 +302,55 @@ const Drags = () => {
 
     const calculateTheDistanceAndAngle = () => {
         let coordinates = {
-            SNA: {S,N,A}, // angle SNA
-            SNB: {S,N,B}, //angle between SNB
-            ANB: {A,N,B}, // angle between ANB
-            // angle between PFr && MA = FMA
-            PFr: {Po, Or}, // line
-            MA: {Go, Me}, // line
-            // angle between PFr && SGn = axe y de_Brodie
-            SGn: {S, Gn}, // line
-            // angle between BaNa && PtGn = axe facial de Rickette
-            BaNa: {Ba, Na}, // line 
-            PtGn: {pt, Gn}, // line
-            // angle between PFr && U1U1ap = I/F
-            U1U1ap: {U1, U1ap}, // line
-            // angle between MA && L1L1ap = I/M
-            L1L1ap: {L1, L1ap}, // line
-            // distnce bewteen A && NaPog = convenxite
-            NaPog: {Na, Pog}, // line
-            // distance between (Pt vertical onto PFr) and (ENA vertical onto PFr)
-            // distance between (Pt vertical onto ENAENP) and A
-            ENAENP: {ENA, ENP}, // line
+            XiENAPm: {
+                Xi: rules[9].Xi,
+                ENA: rules[7].ENA,
+                Pm: rules[17].Pm
+            },
+            SNA: {
+                S: rules[0].S,
+                N,
+                A: rules[1].A
+            }, // angle SNA
+            // SNB: {S,N,B}, //angle between SNB
+            // ANB: {A,N,B}, // angle between ANB
+            // // angle between PFr && MA = FMA
+            // PFr: {Po, Or}, // line
+            // MA: {Go, Me}, // line
+            // // angle between PFr && SGn = axe y de_Brodie
+            // SGn: {S, Gn}, // line
+            // // angle between BaNa && PtGn = axe facial de Rickette
+            // BaNa: {Ba, Na}, // line 
+            // PtGn: {pt, Gn}, // line
+            // // angle between PFr && U1U1ap = I/F
+            // U1U1ap: {U1, U1ap}, // line
+            // // angle between MA && L1L1ap = I/M
+            // L1L1ap: {L1, L1ap}, // line
+            // // distnce bewteen A && NaPog = convenxite
+            // NaPog: {Na, Pog}, // line
+            // // distance between (Pt vertical onto PFr) and (ENA vertical onto PFr)
+            // // distance between (Pt vertical onto ENAENP) and A
+            // ENAENP: {ENA, ENP}, // line
         }
 
-        // let screenToCartesianCoordinates = convertScreenCoordinatesToCartesianPlanePoints(
-        //     coordinates.aa.Xi[0], coordinates.aa.Xi[1], // Origin (x,y)_axes
-        //     coordinates.aa.ENA[0], coordinates.aa.ENA[1], // Vector-A (x,y)_axes
-        //     coordinates.aa.Pm[0], coordinates.aa.Pm[1]  // Vector-B (x,y)_axes
-        // )
+        let screenToCartesianCoordinates = {
+            XiENAPm : convertScreenCoordinatesToCartesianPlanePoints(
+                coordinates.XiENAPm.Xi[0], coordinates.XiENAPm.Xi[1], // Origin (x,y)_axes
+                coordinates.XiENAPm.ENA[0], coordinates.XiENAPm.ENA[1], // Vector-A (x,y)_axes
+                coordinates.XiENAPm.Pm[0], coordinates.XiENAPm.Pm[1]  // Vector-B (x,y)_axes
+            ),
+        }
 
-        // let angle = findTheAngleBetweenTwoVectors(...screenToCartesianCoordinates)
+        let angles = {
+            XiENAPm: findTheAngleBetweenTwoVectors(...screenToCartesianCoordinates.XiENAPm).toFixed(2),
+        }
 
         // let distance = findTheDistanceBetweenTwoPoints(
-        //     coordinates[0].aa.S[0], coordinates[0].aa.S[1], // Vector-A (x,y)_axes
-        //     coordinates[0].aa.B[0], coordinates[0].aa.B[1]  // Vector-B (x,y)_axes
+        //     coordinates[0].XiENAPm.S[0], coordinates[0].XiENAPm.S[1], // Vector-A (x,y)_axes
+        //     coordinates[0].XiENAPm.B[0], coordinates[0].XiENAPm.B[1]  // Vector-B (x,y)_axes
         // )
 
-        console.log("angle", angle.toFixed(2))
+        console.log("angle", angles)
         // console.log("distance", distance.toFixed(2))
     }
 
