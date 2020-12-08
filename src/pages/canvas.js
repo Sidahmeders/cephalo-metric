@@ -14,15 +14,16 @@ const Drags = () => {
 
     // the cephalo-metric calc-points
     const rules = [
-        { 'S': false }, { 'A': false }, { 'B': false }, { 'N': false },
-        { 'Na': false }, { 'Pog': false }, { 'Me': false }, { 'Gn': false },
-        { 'ENA': false }, { 'ENP': false }, { 'Xi': false }, { 'Go': false },
-        { 'Ba': false }, { 'Po': false }, { 'Or': false }, { 'Ptm': false },
-        { 'Ar': false }, { 'D': false }, { 'Pm': false }, { 'Co': false }, 
-        { 'U1': false }, { 'L1': false }, { 'U1ap': false }, { 'L1ap': false },
-        { 'OLp': false }, { 'OLa': false }, { 'PN': false }, { 'DC': false }, 
-        { 'R1': false }, { 'R2': false }, { 'R3': false }, { 'R4': false }
+        { 'S': false }, { 'A': false }, { 'B': false }, { 'N': false }, //4
+        { 'Na': false }, { 'Pog': false }, { 'Me': false }, { 'Gn': false }, //8
+        { 'ENA': false }, { 'ENP': false }, { 'Xi': false }, { 'Go': false }, //12
+        { 'Ba': false }, { 'Po': false }, { 'Or': false }, { 'Ptm': false }, //16
+        { 'Ar': false }, { 'D': false }, { 'Pm': false }, { 'Co': false }, //20
+        { 'U1': false }, { 'L1': false }, { 'U1ap': false }, { 'L1ap': false }, //24
+        { 'OLp': false }, { 'OLa': false }, { 'PN': false }, { 'DC': false },  //28
+        { 'R1': false }, { 'R2': false }, { 'R3': false }, { 'R4': false } //32
     ]
+
 
     const getThePointLandMark = e => {
         // set the isPointSelected to true if it's unSelected
@@ -323,37 +324,49 @@ const Drags = () => {
                 B: rules[2].B
             },
             // angle between PFr && MA = FMA TODO:
-            PFr: { // line
+            PFr: { // line Po-Or
                 Po: rules[13].Po,
                 Or: rules[14].Or
             },
-            MA: { // line
+            MA: { // line Go-Me
                 Go: rules[11].Go,
                 Me: rules[6].Me
             },
-            // // angle between PFr && SGn = axe y de_Brodie TODO:
-            SGn: { // line
+            // angle between PFr && SGn = axe y de_Brodie TODO:
+            SGn: { // line S-Gn
                 S: rules[0].S,
                 Gn: rules[7].Gn
             },
-            // // angle between BaNa && PtGn = axe facial de Rickette TODO:
-            BaNa: { // line
+            // angle between BaNa && PtGn = axe facial de Rickette TODO:
+            BaNa: { // line Ba-Na
                 Ba: rules[12].Ba,
                 Na: rules[4].Na
             }, 
-            PtGn: { // line
+            PtGn: { // line Pt-Gn
                 // Pt: rules[].Pt, 
                 Gn: rules[7].Gn
             },
-            // // angle between PFr && U1U1ap = I/F
-            // U1U1ap: {U1, U1ap}, // line
-            // // angle between MA && L1L1ap = I/M
-            // L1L1ap: {L1, L1ap}, // line
-            // // distnce bewteen A && NaPog = convenxite
-            // NaPog: {Na, Pog}, // line
-            // // distance between (Pt vertical onto PFr) and (ENA vertical onto PFr)
-            // // distance between (Pt vertical onto ENAENP) and A
-            // ENAENP: {ENA, ENP}, // line
+            // angle between PFr && U1U1ap = I/F TODO:
+            U1U1ap: { // line U1-U1ap
+                U1: rules[20].U1, 
+                U1ap: rules[22].U1ap
+            },
+            // angle between MA && L1L1ap = I/M TODO:
+            L1L1ap: { // line L1-L1ap
+                L1: rules[21].L1,
+                L1ap: rules[23].L1ap 
+            },
+            // distnce bewteen A && NaPog = convenxite TODO:
+            NaPog: {
+                Na: rules[4].Na,
+                Pog: rules[5].Pog
+            },
+            // distance between (Pt vertical onto PFr) and (ENA vertical onto PFr) TODO:
+            // distance between (Pt vertical onto ENAENP) and A TODO:
+            ENAENP: {
+                ENA: rules[8].ENA,
+                ENP: rules[9].ENP
+            }
         }
 
         let screenToCartesianCoordinates = {
