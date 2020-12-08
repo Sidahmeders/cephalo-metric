@@ -17,13 +17,12 @@ const Drags = () => {
         { 'S': false }, { 'A': false }, { 'B': false }, { 'N': false }, //4
         { 'Na': false }, { 'Pog': false }, { 'Me': false }, { 'Gn': false }, //8
         { 'ENA': false }, { 'ENP': false }, { 'Xi': false }, { 'Go': false }, //12
-        { 'Ba': false }, { 'Po': false }, { 'Or': false }, { 'Ptm': false }, //16
+        { 'Ba': false }, { 'Po': false }, { 'Or': false }, { 'Pt': false }, //16
         { 'Ar': false }, { 'D': false }, { 'Pm': false }, { 'Co': false }, //20
         { 'U1': false }, { 'L1': false }, { 'U1ap': false }, { 'L1ap': false }, //24
         { 'OLp': false }, { 'OLa': false }, { 'PN': false }, { 'DC': false },  //28
         { 'R1': false }, { 'R2': false }, { 'R3': false }, { 'R4': false } //32
     ]
-
 
     const getThePointLandMark = e => {
         // set the isPointSelected to true if it's unSelected
@@ -305,7 +304,7 @@ const Drags = () => {
         return [Go_x - Po_x, Go_y - Po_y]
     }
 
-    const intersectionOfPFrOntoMA = (S_x, S_y, Gn_x, Gn_y, Po_x, Po_y, Or_x, Or_y) => {
+    const intersectionOfTwoVectors = (S_x, S_y, Gn_x, Gn_y, Po_x, Po_y, Or_x, Or_y) => {
        const d = {
            SGn: { x: Gn_x - S_x, y: Gn_y - S_y },
            PoOr: { x: Or_x - Po_x, y: Or_y - Po_y }
@@ -320,13 +319,12 @@ const Drags = () => {
         return [...d_SGn, ...d_PoOr]
     }
 
+    const multiplyVectorByScalar = (Pt_x, Pt_y, Gn_x, Gn_y, ...BaNa) => {
+        return [...BaNa, Pt_x *2, Pt_y *2, Gn_x *2, Gn_y *2]
+    }
+
     const calculateTheDistanceAndAngle = () => {
         let coordinates = {
-            // XiENAPm: { FIXME:
-            //     Xi: rules[10].Xi,
-            //     ENA: rules[8].ENA,
-            //     Pm: rules[18].Pm
-            // },
             SNA: { // angle between S-N-A
                 S: rules[0].S,
                 N: rules[3].N,
@@ -356,13 +354,13 @@ const Drags = () => {
                 S: rules[0].S,
                 Gn: rules[7].Gn
             },
-            // angle between BaNa && PtGn = axe facial de Rickette TODO:
+            // angle between BaNa && PtGn = axe_facial_de_Rickette TODO:
             BaNa: { // line Ba-Na
                 Ba: rules[12].Ba,
                 Na: rules[4].Na
             }, 
             PtGn: { // line Pt-Gn
-                // Pt: rules[].Pt, 
+                Pt: rules[15].Pt,
                 Gn: rules[7].Gn
             },
             // angle between PFr && U1U1ap = I/F TODO:
@@ -393,19 +391,23 @@ const Drags = () => {
             coordinates.MA.Go[0], coordinates.MA.Go[1],
         )
 
-        const axeYDeBrodieIntersection = intersectionOfPFrOntoMA(
+        const axeYDeBrodieIntersection = intersectionOfTwoVectors(
             coordinates.SGn.S[0], coordinates.SGn.S[1],
             coordinates.SGn.Gn[0], coordinates.SGn.Gn[1],
             coordinates.PFr.Po[0], coordinates.PFr.Po[1],
             coordinates.PFr.Or[0], coordinates.PFr.Or[1]
         )
 
+        const scaledPtGnLine = multiplyVectorByScalar(
+            coordinates.PtGn.Pt[0], coordinates.PtGn.Pt[1],
+            coordinates.PtGn.Gn[0], coordinates.PtGn.Gn[1],
+            coordinates.BaNa.Ba[0], coordinates.BaNa.Ba[1],
+            coordinates.BaNa.Na[0], coordinates.BaNa.Na[1]
+        )
+
+        const axeFacialDeRicketteIntersection = intersectionOfTwoVectors(...scaledPtGnLine)
+
         let screenToCartesianCoordinates = {
-            // XiENAPm : convertScreenCoordinatesToCartesianPlanePoints( FIXME:
-            //     coordinates.XiENAPm.Xi[0], coordinates.XiENAPm.Xi[1], // Origin (x,y)_axes
-            //     coordinates.XiENAPm.ENA[0], coordinates.XiENAPm.ENA[1], // Vector-A (x,y)_axes
-            //     coordinates.XiENAPm.Pm[0], coordinates.XiENAPm.Pm[1]  // Vector-B (x,y)_axes
-            // ),
             SNA: convertScreenCoordinatesToCartesianPlanePoints(
                 coordinates.SNA.N[0], coordinates.SNA.N[1], // Origin (x,y)_axes
                 coordinates.SNA.S[0], coordinates.SNA.S[1], // Vector-A (x,y)_axes
@@ -429,12 +431,12 @@ const Drags = () => {
         }
 
         let angles = {
-            // XiENAPm: findTheAngleBetweenTwoVectors(...screenToCartesianCoordinates.XiENAPm).toFixed(2), FIXME:
             SNA: findTheAngleBetweenTwoVectors(...screenToCartesianCoordinates.SNA).toFixed(2),
             SNB: findTheAngleBetweenTwoVectors(...screenToCartesianCoordinates.SNB).toFixed(2),
             ANB: findTheAngleBetweenTwoVectors(...screenToCartesianCoordinates.ANB).toFixed(2),
             FMA: findTheAngleBetweenTwoVectors(...screenToCartesianCoordinates.FMA).toFixed(2),
-            axe_y_de_Brodie: findTheAngleBetweenTwoVectors(...axeYDeBrodieIntersection).toFixed(2)
+            axe_y_de_Brodie: findTheAngleBetweenTwoVectors(...axeYDeBrodieIntersection).toFixed(2),
+            axe_facial_de_Rickette: findTheAngleBetweenTwoVectors(...scaledPtGnLine).toFixed(2)
         }
 
         // let distance = findTheDistanceBetweenTwoPoints(
@@ -442,8 +444,8 @@ const Drags = () => {
         //     coordinates[0].XiENAPm.B[0], coordinates[0].XiENAPm.B[1]  // Vector-B (x,y)_axes
         // )
 
-        // console.log("coordinates", coordinates.PFr, coordinates.SGn)
-        console.log("angle", angles)
+        // console.log("coordinates", coordinates.BaNa, coordinates.PtGn)
+        console.log("angle", angles.axe_facial_de_Rickette)
         // console.log("distance", distance.toFixed(2))
     }
 
