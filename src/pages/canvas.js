@@ -304,6 +304,9 @@ const Drags = () => {
     const differenceBetweenPoAndGo = (Po_x, Po_y, Go_x, Go_y) => {
         return [Go_x - Po_x, Go_y - Po_y]
     }
+    const differenceBetweenAxeYDeBrodie = () => {
+        // do something....
+    }
 
     const calculateTheDistanceAndAngle = () => {
         let coordinates = {
@@ -327,7 +330,7 @@ const Drags = () => {
                 N: rules[3].N,
                 B: rules[2].B
             },
-            // angle between PFr && MA = FMA TODO:
+            // angle between lines (PFr-MA) = FMA
             PFr: { // line Po-Or
                 Po: rules[13].Po,
                 Or: rules[14].Or
@@ -336,7 +339,7 @@ const Drags = () => {
                 Go: rules[11].Go,
                 Me: rules[6].Me
             },
-            // angle between PFr && SGn = axe y de_Brodie TODO:
+            // angle between lines (PFr-SGn) = axe_y_de_Brodie TODO:
             SGn: { // line S-Gn
                 S: rules[0].S,
                 Gn: rules[7].Gn
@@ -377,8 +380,6 @@ const Drags = () => {
             coordinates.PFr.Po[0], coordinates.PFr.Po[1],
             coordinates.MA.Go[0], coordinates.MA.Go[1],
         )
-
-        console.log(FMA_Diff)
 
         let screenToCartesianCoordinates = {
             // XiENAPm : convertScreenCoordinatesToCartesianPlanePoints( FIXME:
@@ -421,8 +422,8 @@ const Drags = () => {
         //     coordinates[0].XiENAPm.B[0], coordinates[0].XiENAPm.B[1]  // Vector-B (x,y)_axes
         // )
 
-        // console.log("coordinates", coordinates.PFr, coordinates.MA)
-        console.log("angle", angles)
+        console.log("coordinates", coordinates.PFr, coordinates.SGn)
+        // console.log("angle", angles)
         // console.log("distance", distance.toFixed(2))
     }
 
