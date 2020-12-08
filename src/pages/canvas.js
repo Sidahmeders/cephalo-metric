@@ -204,7 +204,7 @@ const Drags = () => {
                         rule[ruleRef] = [mousePosition.x, mousePosition.y]
                     }
                 })
-                //get the Circle and Line Refrence
+                //get the Circle and Line Reference
                 // let cRef = circles[focused.key].cirRef
                 // let lineIndex = Math.floor(cRef/2)
                 // let ll1 = lines[lineIndex].startCirRef
@@ -303,11 +303,11 @@ const Drags = () => {
 
     const calculateTheDistanceAndAngle = () => {
         let coordinates = {
-            XiENAPm: {
-                Xi: rules[10].Xi,
-                ENA: rules[8].ENA,
-                Pm: rules[18].Pm
-            },
+            // XiENAPm: { FIXME:
+            //     Xi: rules[10].Xi,
+            //     ENA: rules[8].ENA,
+            //     Pm: rules[18].Pm
+            // },
             SNA: { // angle between S-N-A
                 S: rules[0].S,
                 N: rules[3].N,
@@ -370,15 +370,33 @@ const Drags = () => {
         }
 
         let screenToCartesianCoordinates = {
-            XiENAPm : convertScreenCoordinatesToCartesianPlanePoints(
-                coordinates.XiENAPm.Xi[0], coordinates.XiENAPm.Xi[1], // Origin (x,y)_axes
-                coordinates.XiENAPm.ENA[0], coordinates.XiENAPm.ENA[1], // Vector-A (x,y)_axes
-                coordinates.XiENAPm.Pm[0], coordinates.XiENAPm.Pm[1]  // Vector-B (x,y)_axes
-            )
+            // XiENAPm : convertScreenCoordinatesToCartesianPlanePoints( FIXME:
+            //     coordinates.XiENAPm.Xi[0], coordinates.XiENAPm.Xi[1], // Origin (x,y)_axes
+            //     coordinates.XiENAPm.ENA[0], coordinates.XiENAPm.ENA[1], // Vector-A (x,y)_axes
+            //     coordinates.XiENAPm.Pm[0], coordinates.XiENAPm.Pm[1]  // Vector-B (x,y)_axes
+            // ),
+            SNA: convertScreenCoordinatesToCartesianPlanePoints(
+                coordinates.SNA.N[0], coordinates.SNA.N[1], // Origin (x,y)_axes
+                coordinates.SNA.S[0], coordinates.SNA.S[1], // Vector-A (x,y)_axes
+                coordinates.SNA.A[0], coordinates.SNA.A[1]  // Vector-B (x,y)_axes
+            ),
+            SNB: convertScreenCoordinatesToCartesianPlanePoints(
+                coordinates.SNB.N[0], coordinates.SNB.N[1], // Origin (x,y)_axes
+                coordinates.SNB.S[0], coordinates.SNB.S[1], // Vector-A (x,y)_axes
+                coordinates.SNB.B[0], coordinates.SNB.B[1]  // Vector-B (x,y)_axes
+            ),
+            ANB: convertScreenCoordinatesToCartesianPlanePoints(
+                coordinates.ANB.N[0], coordinates.ANB.N[1], // Origin (x,y)_axes
+                coordinates.ANB.B[0], coordinates.ANB.B[1], // Vector-A (x,y)_axes
+                coordinates.ANB.A[0], coordinates.ANB.A[1]  // Vector-B (x,y)_axes
+            ),
         }
 
         let angles = {
-            XiENAPm: findTheAngleBetweenTwoVectors(...screenToCartesianCoordinates.XiENAPm).toFixed(2),
+            // XiENAPm: findTheAngleBetweenTwoVectors(...screenToCartesianCoordinates.XiENAPm).toFixed(2), FIXME:
+            SNA: findTheAngleBetweenTwoVectors(...screenToCartesianCoordinates.SNA).toFixed(2),
+            SNB: findTheAngleBetweenTwoVectors(...screenToCartesianCoordinates.SNB).toFixed(2),
+            ANB: findTheAngleBetweenTwoVectors(...screenToCartesianCoordinates.ANB).toFixed(2),
         }
 
         // let distance = findTheDistanceBetweenTwoPoints(
@@ -386,8 +404,8 @@ const Drags = () => {
         //     coordinates[0].XiENAPm.B[0], coordinates[0].XiENAPm.B[1]  // Vector-B (x,y)_axes
         // )
 
-        console.log("coordinates", coordinates)
-        // console.log("angle", angles)
+        // console.log("coordinates", coordinates)
+        console.log("angle", angles)
         // console.log("distance", distance.toFixed(2))
     }
 
