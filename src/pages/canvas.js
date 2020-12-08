@@ -348,13 +348,13 @@ const Drags = () => {
             },
             // angle between PFr && U1U1ap = I/F TODO:
             U1U1ap: { // line U1-U1ap
-                U1: rules[20].U1, 
+                U1: rules[20].U1,
                 U1ap: rules[22].U1ap
             },
             // angle between MA && L1L1ap = I/M TODO:
             L1L1ap: { // line L1-L1ap
                 L1: rules[21].L1,
-                L1ap: rules[23].L1ap 
+                L1ap: rules[23].L1ap
             },
             // distnce bewteen A && NaPog = convenxite TODO:
             NaPog: {
