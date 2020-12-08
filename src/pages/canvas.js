@@ -351,7 +351,7 @@ const Drags = () => {
                 Go: rules[11].Go,
                 Me: rules[6].Me
             },
-            // angle between lines (PFr-SGn) = axe_y_de_Brodie TODO:
+            // angle between lines (PFr-SGn) = axe_y_de_Brodie
             SGn: { // line S-Gn
                 S: rules[0].S,
                 Gn: rules[7].Gn
@@ -433,7 +433,8 @@ const Drags = () => {
             SNA: findTheAngleBetweenTwoVectors(...screenToCartesianCoordinates.SNA).toFixed(2),
             SNB: findTheAngleBetweenTwoVectors(...screenToCartesianCoordinates.SNB).toFixed(2),
             ANB: findTheAngleBetweenTwoVectors(...screenToCartesianCoordinates.ANB).toFixed(2),
-            FMA: findTheAngleBetweenTwoVectors(...screenToCartesianCoordinates.FMA).toFixed(2)
+            FMA: findTheAngleBetweenTwoVectors(...screenToCartesianCoordinates.FMA).toFixed(2),
+            axe_y_de_Brodie: findTheAngleBetweenTwoVectors(...axeYDeBrodieIntersection).toFixed(2)
         }
 
         // let distance = findTheDistanceBetweenTwoPoints(
@@ -441,8 +442,8 @@ const Drags = () => {
         //     coordinates[0].XiENAPm.B[0], coordinates[0].XiENAPm.B[1]  // Vector-B (x,y)_axes
         // )
 
-        console.log("coordinates", coordinates.PFr, coordinates.SGn)
-        // console.log("angle", angles)
+        // console.log("coordinates", coordinates.PFr, coordinates.SGn)
+        console.log("angle", angles)
         // console.log("distance", distance.toFixed(2))
     }
 
