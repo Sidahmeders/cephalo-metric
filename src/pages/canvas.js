@@ -319,10 +319,6 @@ const Drags = () => {
         return [...d_SGn, ...d_PoOr]
     }
 
-    const multiplyVectorByScalar = (Pt_x, Pt_y, Gn_x, Gn_y, ...BaNa) => {
-        return [...BaNa, Pt_x *2, Pt_y *2, Gn_x *2, Gn_y *2]
-    }
-
     const calculateTheDistanceAndAngle = () => {
         let coordinates = {
             SNA: { // angle between S-N-A
@@ -398,14 +394,12 @@ const Drags = () => {
             coordinates.PFr.Or[0], coordinates.PFr.Or[1]
         )
 
-        const scaledPtGnLine = multiplyVectorByScalar(
+        const axeFacialDeRicketteIntersection = intersectionOfTwoVectors(
             coordinates.PtGn.Pt[0], coordinates.PtGn.Pt[1],
             coordinates.PtGn.Gn[0], coordinates.PtGn.Gn[1],
-            coordinates.BaNa.Ba[0], coordinates.BaNa.Ba[1],
-            coordinates.BaNa.Na[0], coordinates.BaNa.Na[1]
-        )
-
-        const axeFacialDeRicketteIntersection = intersectionOfTwoVectors(...scaledPtGnLine)
+            coordinates.BaNa.Na[0], coordinates.BaNa.Na[1],
+            coordinates.BaNa.Ba[0], coordinates.BaNa.Ba[1]
+            )
 
         let screenToCartesianCoordinates = {
             SNA: convertScreenCoordinatesToCartesianPlanePoints(
@@ -435,8 +429,8 @@ const Drags = () => {
             SNB: findTheAngleBetweenTwoVectors(...screenToCartesianCoordinates.SNB).toFixed(2),
             ANB: findTheAngleBetweenTwoVectors(...screenToCartesianCoordinates.ANB).toFixed(2),
             FMA: findTheAngleBetweenTwoVectors(...screenToCartesianCoordinates.FMA).toFixed(2),
-            axe_y_de_Brodie: findTheAngleBetweenTwoVectors(...axeYDeBrodieIntersection).toFixed(2),
-            axe_facial_de_Rickette: findTheAngleBetweenTwoVectors(...scaledPtGnLine).toFixed(2)
+            axe_Brodie: findTheAngleBetweenTwoVectors(...axeYDeBrodieIntersection).toFixed(2),
+            axe_Rickette: findTheAngleBetweenTwoVectors(...axeFacialDeRicketteIntersection).toFixed(2)
         }
 
         // let distance = findTheDistanceBetweenTwoPoints(
@@ -445,7 +439,7 @@ const Drags = () => {
         // )
 
         // console.log("coordinates", coordinates.BaNa, coordinates.PtGn)
-        console.log("angle", angles.axe_facial_de_Rickette)
+        console.log("angle", angles.axe_Brodie)
         // console.log("distance", distance.toFixed(2))
     }
 
