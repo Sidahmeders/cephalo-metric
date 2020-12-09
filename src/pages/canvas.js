@@ -350,7 +350,7 @@ const Drags = () => {
                 S: rules[0].S,
                 Gn: rules[7].Gn
             },
-            // angle between BaNa && PtGn = axe_facial_de_Rickette TODO:
+            // angle between BaNa && PtGn = axe_facial_de_Rickette
             BaNa: { // line Ba-Na
                 Ba: rules[12].Ba,
                 Na: rules[4].Na
@@ -438,8 +438,8 @@ const Drags = () => {
         //     coordinates[0].XiENAPm.B[0], coordinates[0].XiENAPm.B[1]  // Vector-B (x,y)_axes
         // )
 
-        // console.log("coordinates", coordinates.BaNa, coordinates.PtGn)
-        console.log("angle", angles.axe_Brodie)
+        console.log("coordinates", coordinates.PFr, coordinates.U1U1ap)
+        console.log("angle", angles)
         // console.log("distance", distance.toFixed(2))
     }
 
