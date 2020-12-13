@@ -8,22 +8,27 @@
 [3,4]
 */
 
-var combine = function(n, k) {
-    let ans = []
-    backtracking(ans,[],1,n,k)
-    return ans
+var angleClock = function(hour, minutes) {
+    if(hour == 12){
+        hour = 0
+    }
+    let min = minutes/5
+    
+    let newHour = Math.abs(hour + minutes/60)
+    let angle = Math.abs(newHour-min)*30
+    return Math.min((360-angle),angle)
 }
 
-var backtracking = function(ans,tmp,start,n,k) {
-    if(tmp.length == k){
-      ans.push(Array.from(tmp))
-      return
-    }
-    for(let i=start;i<=n;++i){
-      tmp.push(i)
-      backtracking(ans,tmp,i+1,n,k)
-      tmp.pop()
-    }
+var angleClock = function(hour, minutes) {
+    let hourAngle = (hour % 12)  * 30 + minutes * 0.5;
+    // hour-hand rotates 30 degrees per hour and 0.5 degrees per minute
+    let minuteAngle = minutes * 6;
+    // minute-hand rotates 6 degrees Per minute
+    
+    let angle1 = Math.abs(hourAngle - minuteAngle);
+    let angle2 = 360 - angle1;
+    
+    return Math.min(angle1, angle2);
 }
 
 console.log(combine(4, 2))
